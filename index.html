@@ -27,11 +27,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 />
 
-<!-- dotLottie web component (renders the hero animation; supports .lottie and .json) -->
-<script
-  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.5/dist/dotlottie-wc.js"
-  type="module"
-></script>
+<!-- Hero animation is a self-contained iframe (kaizen-hero.html) — no Lottie runtime needed. -->
 
 <style>
   :root {
@@ -405,10 +401,12 @@
     overflow: hidden;
   }
   .lottie-stage dotlottie-wc,
+  .lottie-stage .hero-anim,
   .lottie-stage .lottie-fallback {
     width: 100%;
     height: 100%;
   }
+  .lottie-stage .hero-anim { border: 0; display: block; }
   .lottie-fallback {
     display: none;
     place-items: center;
@@ -1017,17 +1015,18 @@
         </div>
         <div class="lottie-stage">
           <!--
-            LOTTIE-SRC — swap the hero animation here.
-            • Hosted .lottie (default): keep the src below.
-            • Local JSON: set src="kaizen-hero.json" (or your filename).
-            dotlottie-wc accepts both .lottie and .json sources.
+            HERO ANIMATION — live product tour of the Kaizen Helper dashboard.
+            Self-contained file kaizen-hero.html sits beside index.html and is
+            embedded below. It autoplays, loops, and is self-contained
+            (screens load from the ./screens/ folder). To revert to Lottie,
+            restore the previous <dotlottie-wc> element here.
           -->
-          <dotlottie-wc
-            id="heroLottie"
-            src="https://lottie.host/24340905-2854-46af-baba-607a4830b0ca/E80zfXsm4L.lottie"
-            autoplay
-            loop
-          ></dotlottie-wc>
+          <iframe
+            class="hero-anim"
+            src="kaizen-hero.html"
+            title="Kaizen Helper — live product tour"
+            scrolling="no"
+          ></iframe>
           <div class="lottie-fallback" id="lottieFallback">
             <div>
               <i class="fa-solid fa-chart-line" style="font-size:2rem;color:var(--brand)"></i>
