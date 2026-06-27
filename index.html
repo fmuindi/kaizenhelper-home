@@ -416,14 +416,14 @@
   }
 
   /* ---------- Logo strip ---------- */
-  .logos { padding-block: 56px; }
+  .logos { padding-block: 56px; background: #14183d; }
   .logos p.label {
     text-align: center;
     font-family: var(--font-head);
     font-weight: 500;
     font-size: 0.9rem;
     letter-spacing: 0.04em;
-    color: var(--ink-2);
+    color: rgba(255,255,255,0.6);
     margin-bottom: 30px;
   }
   .marquee {
@@ -444,18 +444,27 @@
     height: 42px;
     width: auto;
     object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.62;
+    filter: grayscale(1) invert(1) brightness(1.8);
+    opacity: 0.75;
     transition: filter 0.25s ease, opacity 0.25s ease;
   }
-  .marquee-track img:hover { filter: grayscale(0); opacity: 1; }
+  .marquee-track img:hover { filter: grayscale(0) invert(0) brightness(1); opacity: 1; }
+  .marquee-track img.logo-light-bg {
+    filter: brightness(0) invert(1);
+    mix-blend-mode: normal;
+    opacity: 0.7;
+  }
+  .marquee-track img.logo-light-bg:hover {
+    filter: brightness(0) invert(1);
+    mix-blend-mode: normal;
+    opacity: 1;
+  }
   .logo-fallback {
     font-family: var(--font-head);
     font-weight: 600;
     font-size: 1.05rem;
-    color: var(--ink-2);
+    color: rgba(255,255,255,0.8);
     white-space: nowrap;
-    opacity: 0.6;
   }
   @keyframes scroll-x {
     from { transform: translateX(0); }
@@ -1552,8 +1561,8 @@
     { name: "R&S Logistics", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Rns.png" },
     { name: "Red Stag Fulfillment", src: "https://lean365-media.s3.us-east-2.amazonaws.com/redstag2.png" },
     { name: "Regulator Marine", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Regulator-logo.png" },
-    { name: "Stratus Systems", src: "https://lean365-media.s3.us-east-2.amazonaws.com/stratus-logo.png" },
-    { name: "Protomet", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Protomet-Logo.webp" },
+    { name: "Stratus Systems", src: "https://lean365-media.s3.us-east-2.amazonaws.com/stratus-logo.png", lightBg: true },
+    { name: "Protomet", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Protomet-Logo.webp", lightBg: true },
     { name: "Keystone Kitchens", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Untitled+design+(5).png" },
   ];
 
@@ -1563,6 +1572,7 @@
     img.src = logo.src;
     img.alt = logo.name + " logo";
     img.loading = "lazy";
+    if (logo.lightBg) img.classList.add("logo-light-bg");
     img.onerror = () => {
       const span = document.createElement("span");
       span.className = "logo-fallback";
