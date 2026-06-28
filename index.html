@@ -29,11 +29,8 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 />
 
-<!-- dotLottie web component (renders the uploaded .json hero animation) -->
-<script
-  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.5/dist/dotlottie-wc.js"
-  type="module"
-></script>
+<!-- lottie-web (bodymovin) — renders the uploaded .json hero animation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
 <style>
   :root {
@@ -305,7 +302,8 @@
     display: grid;
     place-items: center;
   }
-  .hero-visual dotlottie-wc { width: 100%; height: 100%; }
+  .hero-visual #heroLottie { width: 100%; height: 100%; }
+  .hero-visual #heroLottie svg { display: block; }
   .lottie-fallback {
     display: none;
     place-items: center;
@@ -696,8 +694,8 @@
       <!-- Hero animation (right column): the uploaded Lottie JSON -->
       <div class="hero-visual">
         <div class="stage">
-          <!-- HERO-LOTTIE — swap your hero animation here (local .json or .lottie) -->
-          <dotlottie-wc id="heroLottie" src="assets/hero-animation.json" autoplay loop></dotlottie-wc>
+          <!-- HERO-LOTTIE — lottie-web renders assets/hero-animation.json into this div (see script below to swap) -->
+          <div id="heroLottie" role="img" aria-label="Animated illustration of continuous improvement"></div>
           <div class="lottie-fallback" id="heroFallback">
             <div>
               <i class="fa-solid fa-chart-line" style="font-size:2rem;color:var(--brand)"></i>
@@ -1134,14 +1132,27 @@
     reveals.forEach((el) => io.observe(el));
   }
 
-  // Hero Lottie fallback if the web component fails to upgrade
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const el = document.getElementById("heroLottie");
-      if (el && !customElements.get("dotlottie-wc")) {
-        el.style.display = "none";
-        document.getElementById("heroFallback").style.display = "grid";
-      }
-    }, 2500);
-  });
+  // Hero animation — render the uploaded JSON with lottie-web.
+  // To swap the animation, replace assets/hero-animation.json (or change the path below).
+  (function initHeroLottie() {
+    const container = document.getElementById("heroLottie");
+    const fallback = document.getElementById("heroFallback");
+    function showFallback() {
+      if (container) container.style.display = "none";
+      if (fallback) fallback.style.display = "grid";
+    }
+    if (!window.lottie) { showFallback(); return; }
+    try {
+      const anim = lottie.loadAnimation({
+        container,
+        renderer: "svg",
+        loop: true,
+        autoplay: !reduceMotion, // honor reduced-motion: render a still frame instead of looping
+        path: "assets/hero-animation.json",
+      });
+      anim.addEventListener("data_failed", showFallback);
+    } catch (e) {
+      showFallback();
+    }
+  })();
 </script>
