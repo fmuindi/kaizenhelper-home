@@ -613,9 +613,60 @@
   }
 
   /* Mobile menu */
-  .mobile-menu { display: none; background: #fff; border-top: 1px solid var(--border); padding: 12px 24px 22px; }
-  .mobile-menu a { display: block; padding: 12px 0; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--border); }
-  .mobile-menu .btn { width: 100%; margin-top: 14px; }
+  .mobile-menu {
+    display: none;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 22px 44px rgba(24, 35, 58, 0.16);
+    padding: 10px 22px 26px;
+  }
+  .mobile-menu.open { display: block; animation: mm-in 0.22s ease; }
+  @keyframes mm-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+  .mm-links { display: grid; }
+  .mm-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 4px;
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    transition: color 0.18s ease;
+  }
+  .mm-links a:hover { color: var(--brand); }
+  .mm-links a::after {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f054"; /* chevron-right */
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .mm-actions { display: grid; gap: 10px; margin-top: 20px; }
+  .mm-actions .btn { width: 100%; padding-block: 14px; font-size: 1rem; }
+  .mm-actions .mm-login {
+    text-align: center;
+    padding: 12px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .mm-actions .mm-login:hover { color: var(--brand); }
+
+  /* Keep the top bar readable while the menu is open (white panel under it) */
+  header.nav.menu-open {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: saturate(160%) blur(12px);
+    border-bottom-color: var(--border);
+  }
+  header.nav.menu-open .brand { color: var(--ink); }
+  header.nav.menu-open .nav-toggle { background: var(--bg-soft); border-color: var(--border); color: var(--ink); }
+  header.nav.menu-open .nav-actions .btn-on-dark { background: var(--brand); color: #fff; }
+  header.nav.menu-open .nav-actions .btn-on-dark:hover { background: var(--brand-dark); }
+
+  /* The menu only ever exists on mobile; never let an open state linger on desktop */
+  @media (min-width: 941px) { #mobileMenu { display: none !important; } }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -654,13 +705,19 @@
   </div>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#capabilities">What you get</a>
-    <a href="#product">Product</a>
-    <a href="#how">How it works</a>
-    <a href="#who">Who it's for</a>
-    <a href="https://kaizenhelper.com/login">Log in</a>
-    <a class="btn btn-ghost" href="https://kaizenhelper.com/register">Register</a>
-    <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a demo</a>
+    <nav class="mm-links" aria-label="Mobile">
+      <a href="#capabilities">What you get</a>
+      <a href="#product">Product</a>
+      <a href="#how">How it works</a>
+      <a href="#who">Who it's for</a>
+    </nav>
+    <div class="mm-actions">
+      <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a demo
+      </a>
+      <a class="btn btn-ghost" href="https://kaizenhelper.com/register">Register</a>
+      <a class="mm-login" href="https://kaizenhelper.com/login">Log in</a>
+    </div>
   </div>
 </header>
 
@@ -1071,18 +1128,20 @@
   // Mobile menu
   const toggle = document.getElementById("navToggle");
   const menu = document.getElementById("mobileMenu");
-  toggle.addEventListener("click", () => {
-    const open = menu.classList.toggle("open");
+  function setMenu(open) {
+    menu.classList.toggle("open", open);
+    nav.classList.toggle("menu-open", open);
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
-  });
-  menu.querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", () => {
-      menu.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    })
-  );
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    toggle.innerHTML = open
+      ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+  }
+  toggle.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
+  menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  // Close on Escape and when resizing back up to desktop
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 940) setMenu(false); });
 
   // Year
   document.getElementById("year").textContent = new Date().getFullYear();
