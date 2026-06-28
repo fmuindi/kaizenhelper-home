@@ -1,23 +1,25 @@
 <!--
   Kaizen Helper — Landing Page
-  Single-file implementation (HTML + CSS + JS).
+  Clean, minimalist single-file build (HTML + CSS + JS).
   Hero use case: Abnormal Condition (AC) Tracking.
 
-  LOTTIE SWAP POINT: search for "LOTTIE-SRC" below.
+  ANIMATIONS:
+   • Hero (right column):  assets/hero-animation.json   (search "HERO-LOTTIE")
+   • Below hero band:      kaizen-hero.html product tour (search "KAIZEN-ANIM")
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kaizen Helper — Turn Daily Problems Into Continuous Improvement</title>
+<title>Kaizen Helper — Turn daily problems into continuous improvement</title>
 <meta
   name="description"
-  content="Kaizen Helper helps Lean teams capture abnormal conditions, analyze root causes, assign countermeasures, and track improvement actions in one AI-powered workspace."
+  content="Kaizen Helper helps your team capture abnormal conditions, find root causes, assign countermeasures, and track improvement work in one simple, AI-powered workspace."
 />
 
-<!-- Fonts -->
+<!-- Fonts: Fraunces (editorial serif headings) + Inter (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;450;500;600;700&display=swap"
   rel="stylesheet"
 />
 
@@ -27,108 +29,90 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 />
 
-<!-- Hero animation is a self-contained iframe (kaizen-hero.html) — no Lottie runtime needed. -->
+<!-- dotLottie web component (renders the uploaded .json hero animation) -->
+<script
+  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.5/dist/dotlottie-wc.js"
+  type="module"
+></script>
 
 <style>
   :root {
-    /* Brand palette */
-    --brand: #3d41c1;
-    --brand-soft: #c1c5f4;
-    --cta: #0eb395;
-    --cta-dark: #0c9d83;
-    --accent: #9a005b;
-    --ink: #1e2358;
-    --ink-2: #4f5680;
-    --bg: #f7f8ff;
-    --surface: #ffffff;
-    --tint: #eef0fd;
-    --border: #e3e7fa;
+    --brand: #2c5087;
+    --brand-dark: #224069;
+    --brand-tint: #eef2f8;
+    --ink: #18233a;
+    --muted: #5b6576;
+    --bg: #ffffff;
+    --bg-soft: #f5f6f8;
+    --border: #e6e8ec;
 
-    --radius: 16px;
-    --radius-lg: 24px;
-    --shadow-sm: 0 1px 2px rgba(30, 35, 88, 0.06),
-      0 4px 12px rgba(30, 35, 88, 0.05);
-    --shadow-md: 0 8px 24px rgba(30, 35, 88, 0.08),
-      0 2px 6px rgba(30, 35, 88, 0.05);
-    --shadow-lg: 0 24px 60px rgba(30, 35, 88, 0.16);
+    --radius: 14px;
+    --radius-lg: 22px;
+    --shadow-sm: 0 1px 2px rgba(24, 35, 58, 0.05), 0 4px 14px rgba(24, 35, 58, 0.05);
+    --shadow-md: 0 14px 40px rgba(24, 35, 58, 0.1);
 
-    --maxw: 1160px;
-    --space: clamp(64px, 9vw, 120px);
+    --maxw: 1140px;
+    --space: clamp(64px, 9vw, 116px);
 
-    --font-head: "Space Grotesk", sans-serif;
-    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   * { box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     margin: 0;
-    font-family: var(--font-body);
+    font-family: var(--sans);
     color: var(--ink);
     background: var(--bg);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-head);
+    font-family: var(--serif);
     color: var(--ink);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    font-weight: 600;
     margin: 0;
   }
-
-  p { margin: 0; color: var(--ink-2); }
+  p { margin: 0; color: var(--muted); }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
 
-  /* Focus visibility */
   a:focus-visible,
   button:focus-visible,
   .btn:focus-visible {
     outline: 3px solid var(--brand);
     outline-offset: 3px;
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .container {
     width: 100%;
     max-width: var(--maxw);
     margin-inline: auto;
-    padding-inline: 22px;
+    padding-inline: 24px;
   }
-
   section { padding-block: var(--space); }
 
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: var(--font-head);
-    font-size: 0.78rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
     color: var(--brand);
-    background: var(--tint);
-    border: 1px solid var(--border);
-    padding: 7px 14px;
-    border-radius: 999px;
+    margin-bottom: 18px;
   }
 
-  .section-head { max-width: 720px; margin-bottom: 52px; }
+  .section-head { max-width: 640px; }
   .section-head.center { margin-inline: auto; text-align: center; }
-  .section-head h2 {
-    font-size: clamp(1.85rem, 4vw, 2.7rem);
-    margin-top: 18px;
-  }
-  .section-head p {
-    font-size: 1.08rem;
-    margin-top: 16px;
-  }
+  .section-head h2 { font-size: clamp(2rem, 4.4vw, 3rem); }
+  .section-head p { font-size: 1.08rem; margin-top: 16px; }
 
   /* ---------- Buttons ---------- */
   .btn {
@@ -136,88 +120,55 @@
     align-items: center;
     justify-content: center;
     gap: 9px;
-    font-family: var(--font-head);
+    font-family: var(--sans);
     font-weight: 600;
-    font-size: 0.98rem;
+    font-size: 0.97rem;
     padding: 13px 24px;
-    border-radius: 12px;
-    border: 1px solid transparent;
+    border-radius: 10px;
+    border: 1.5px solid transparent;
     cursor: pointer;
-    transition: transform 0.18s ease, box-shadow 0.18s ease,
-      background 0.18s ease, border-color 0.18s ease;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+      transform 0.18s ease;
     white-space: nowrap;
   }
-  .btn-primary {
-    background: var(--cta);
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--brand); border-color: var(--border); }
+  .btn-ghost:hover { border-color: var(--brand); }
+  .btn-on-dark { background: #fff; color: var(--brand); }
+  .btn-on-dark:hover { background: #f0f3f8; transform: translateY(-1px); }
+  .btn-link {
+    background: transparent;
     color: #fff;
-    box-shadow: 0 8px 22px rgba(14, 179, 149, 0.35);
+    border: none;
+    padding: 13px 6px;
+    font-weight: 600;
   }
-  .btn-primary:hover {
-    background: var(--cta-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(14, 179, 149, 0.42);
-  }
-  .btn-ghost {
-    background: var(--surface);
-    color: var(--ink);
-    border-color: var(--border);
-    box-shadow: var(--shadow-sm);
-  }
-  .btn-ghost:hover {
-    border-color: var(--brand-soft);
-    transform: translateY(-2px);
-  }
-  .btn-outline-light {
-    background: rgba(255, 255, 255, 0.06);
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.28);
-  }
-  .btn-outline-light:hover {
-    background: rgba(255, 255, 255, 0.14);
-    transform: translateY(-2px);
-  }
+  .btn-link:hover { text-decoration: underline; }
 
   /* ---------- Navigation ---------- */
   header.nav {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(247, 248, 255, 0.82);
-    backdrop-filter: saturate(160%) blur(14px);
+    background: transparent;
+    transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
-  }
-  header.nav.scrolled {
-    border-bottom-color: var(--border);
-    box-shadow: 0 6px 20px rgba(30, 35, 88, 0.05);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    height: 72px;
+    height: 70px;
   }
   .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 11px;
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 1.16rem;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-  }
-  .brand .mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--brand), var(--accent));
-    display: grid;
-    place-items: center;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: -0.01em;
     color: #fff;
-    font-size: 1rem;
-    box-shadow: 0 6px 16px rgba(61, 65, 193, 0.4);
+    transition: color 0.25s ease;
   }
   .nav-links {
     display: flex;
@@ -230,423 +181,234 @@
   .nav-links a {
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--ink-2);
-    transition: color 0.18s ease;
+    color: rgba(255, 255, 255, 0.88);
+    transition: color 0.2s ease, opacity 0.2s ease;
   }
-  .nav-links a:hover { color: var(--brand); }
-  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .nav-links a:hover { opacity: 0.7; }
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
   .nav-actions .login {
-    font-family: var(--font-head);
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--ink);
-    padding: 8px 6px;
+    color: #fff;
+    transition: color 0.25s ease, opacity 0.2s ease;
   }
-  .nav-actions .login:hover { color: var(--brand); }
+  .nav-actions .login:hover { opacity: 0.7; }
+
+  header.nav.scrolled {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(160%) blur(12px);
+    border-bottom-color: var(--border);
+  }
+  header.nav.scrolled .brand { color: var(--ink); }
+  header.nav.scrolled .nav-links a { color: var(--muted); }
+  header.nav.scrolled .nav-links a:hover { color: var(--brand); opacity: 1; }
+  header.nav.scrolled .nav-actions .login { color: var(--ink); }
+  header.nav.scrolled .btn-on-dark { background: var(--brand); color: #fff; }
+  header.nav.scrolled .btn-on-dark:hover { background: var(--brand-dark); }
 
   .nav-toggle {
     display: none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    border-radius: 9px;
     width: 44px;
     height: 44px;
-    font-size: 1.15rem;
-    color: var(--ink);
+    font-size: 1.1rem;
     cursor: pointer;
+  }
+  header.nav.scrolled .nav-toggle {
+    background: var(--bg-soft);
+    border-color: var(--border);
+    color: var(--ink);
   }
 
   /* ---------- Hero ---------- */
   .hero {
+    background: var(--brand);
+    color: #fff;
+    margin-top: -70px;
+    padding-top: 130px;
+    padding-bottom: clamp(64px, 8vw, 104px);
     position: relative;
     overflow: hidden;
-    padding-top: clamp(48px, 7vw, 84px);
-    padding-bottom: clamp(56px, 8vw, 96px);
   }
-  .hero-mesh {
+  .hero::after {
+    content: "";
     position: absolute;
     inset: 0;
-    z-index: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 80% 30%, #000, transparent 70%);
+    mask-image: radial-gradient(ellipse 70% 70% at 80% 30%, #000, transparent 70%);
     pointer-events: none;
-    overflow: hidden;
-  }
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.55;
-  }
-  .blob.b1 {
-    width: 460px; height: 460px;
-    background: var(--brand-soft);
-    top: -120px; left: -90px;
-  }
-  .blob.b2 {
-    width: 420px; height: 420px;
-    background: rgba(14, 179, 149, 0.45);
-    top: -60px; right: -80px;
-  }
-  .blob.b3 {
-    width: 380px; height: 380px;
-    background: rgba(154, 0, 91, 0.22);
-    bottom: -140px; left: 38%;
-  }
-  .hero-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 46px 46px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%);
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%);
     opacity: 0.6;
   }
-
-  .hero-inner {
+  .hero-grid {
     position: relative;
     z-index: 1;
-    text-align: center;
-    max-width: 880px;
-    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
   }
   .hero h1 {
-    font-size: clamp(2.3rem, 6vw, 4rem);
-    margin-top: 22px;
-  }
-  .hero h1 .grad {
-    background: linear-gradient(100deg, var(--brand) 10%, var(--accent) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #fff;
+    font-size: clamp(2.6rem, 5.4vw, 4.1rem);
+    font-weight: 600;
   }
   .hero .sub {
-    font-size: clamp(1.05rem, 2.2vw, 1.28rem);
-    margin: 22px auto 0;
-    max-width: 660px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+    margin-top: 22px;
+    max-width: 520px;
   }
   .hero-cta {
     display: flex;
-    gap: 14px;
-    justify-content: center;
+    align-items: center;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-top: 34px;
+    margin-top: 32px;
   }
   .hero-trust {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px 26px;
+    gap: 10px 24px;
     margin-top: 30px;
   }
   .hero-trust span {
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--ink-2);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
   }
-  .hero-trust i { color: var(--cta); }
+  .hero-trust i { color: #bcd0ee; }
 
-  /* Hero product / lottie visual */
   .hero-visual {
     position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 56px auto 0;
-  }
-  .hero-frame {
-    position: relative;
-    background: linear-gradient(180deg, #fff, #fafbff);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
     padding: 14px;
-    overflow: hidden;
   }
-  .hero-frame::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-lg);
-    padding: 1px;
-    background: linear-gradient(120deg, rgba(61,65,193,0.5), rgba(14,179,149,0.4), rgba(154,0,91,0.35));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-  .hero-window-bar {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 6px 8px 12px;
-  }
-  .hero-window-bar i { font-size: 0.62rem; color: var(--border); }
-  .dot { width: 11px; height: 11px; border-radius: 50%; }
-  .dot.r { background: #ff6058; }
-  .dot.y { background: #ffbd2e; }
-  .dot.g { background: #28c840; }
-  .lottie-stage {
-    position: relative;
+  .hero-visual .stage {
+    background: #fff;
     border-radius: 16px;
-    background:
-      radial-gradient(circle at 30% 20%, rgba(193,197,244,0.4), transparent 60%),
-      radial-gradient(circle at 80% 80%, rgba(14,179,149,0.18), transparent 55%),
-      var(--tint);
-    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
-    overflow: hidden;
   }
-  .lottie-stage dotlottie-wc,
-  .lottie-stage .hero-anim,
-  .lottie-stage .lottie-fallback {
-    width: 100%;
-    height: 100%;
-  }
-  .lottie-stage .hero-anim { border: 0; display: block; }
+  .hero-visual dotlottie-wc { width: 100%; height: 100%; }
   .lottie-fallback {
     display: none;
     place-items: center;
     text-align: center;
-    color: var(--ink-2);
-    padding: 24px;
+    color: var(--muted);
+    padding: 30px;
   }
 
-  /* ---------- Logo strip ---------- */
-  .logos { padding-block: 56px; background: #14183d; }
-  .logos p.label {
-    text-align: center;
-    font-family: var(--font-head);
-    font-weight: 500;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 30px;
-  }
-  .marquee {
-    position: relative;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  }
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    gap: 64px;
-    align-items: center;
-    animation: scroll-x 38s linear infinite;
-  }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-  .marquee-track img {
-    height: 42px;
-    width: auto;
-    object-fit: contain;
-    filter: grayscale(1) invert(1) brightness(1.8);
-    opacity: 0.75;
-    transition: filter 0.25s ease, opacity 0.25s ease;
-  }
-  .marquee-track img:hover { filter: grayscale(0) invert(0) brightness(1); opacity: 1; }
-  .marquee-track img.logo-light-bg {
-    filter: brightness(0) invert(1);
-    mix-blend-mode: normal;
-    opacity: 0.7;
-  }
-  .marquee-track img.logo-light-bg:hover {
-    filter: brightness(0) invert(1);
-    mix-blend-mode: normal;
-    opacity: 1;
-  }
-  .logo-fallback {
-    font-family: var(--font-head);
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.8);
-    white-space: nowrap;
-  }
-  @keyframes scroll-x {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* ---------- Problem ---------- */
-  .problem { background: var(--surface); border-block: 1px solid var(--border); }
-  .problem-grid {
+  /* ---------- Kaizen animation band (product tour) ---------- */
+  .motion-band { background: var(--bg-soft); }
+  .motion-grid {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1fr 1.15fr;
     gap: 56px;
     align-items: center;
   }
-  .pain-list { display: grid; gap: 14px; margin-top: 8px; }
-  .pain-item {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    background: var(--bg);
+  .motion-stage {
+    background: #0b1020;
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px 18px;
-  }
-  .pain-item i {
-    color: var(--accent);
-    font-size: 1rem;
-    margin-top: 3px;
-    flex-shrink: 0;
-  }
-  .pain-item strong { color: var(--ink); font-weight: 600; }
-
-  /* ---------- Before / After ---------- */
-  .ba-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 26px;
-  }
-  .ba-card {
     border-radius: var(--radius-lg);
-    padding: 32px;
-    border: 1px solid var(--border);
-  }
-  .ba-card.before { background: var(--surface); }
-  .ba-card.after {
-    background: linear-gradient(165deg, #11163f, #1e2358);
-    border-color: transparent;
-    color: #fff;
-    position: relative;
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 16 / 9;
     overflow: hidden;
   }
-  .ba-card.after::after {
-    content: "";
-    position: absolute;
-    width: 280px; height: 280px;
-    background: radial-gradient(circle, rgba(14,179,149,0.4), transparent 70%);
-    top: -100px; right: -80px;
-  }
-  .ba-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-head);
-    font-weight: 600;
-    font-size: 0.82rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 13px;
-    border-radius: 999px;
-    margin-bottom: 20px;
-  }
-  .ba-card.before .ba-tag { background: var(--tint); color: var(--ink-2); }
-  .ba-card.after .ba-tag { background: rgba(14,179,149,0.18); color: #5fe9cf; position: relative; z-index: 1; }
-  .ba-card h3 { font-size: 1.4rem; margin-bottom: 22px; }
-  .ba-card.after h3 { color: #fff; position: relative; z-index: 1; }
-  .ba-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; position: relative; z-index: 1; }
-  .ba-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.98rem; }
-  .ba-list.before-list li { color: var(--ink-2); }
-  .ba-list.before-list i { color: #c2476f; margin-top: 4px; }
-  .ba-list.after-list li { color: rgba(255,255,255,0.86); }
-  .ba-list.after-list i { color: #5fe9cf; margin-top: 4px; }
+  .motion-stage iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-  /* ---------- Use case cards ---------- */
-  .cards-grid {
+  /* ---------- Simple feature cards ---------- */
+  .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 22px;
+    margin-top: 48px;
   }
-  .uc-card {
-    background: var(--surface);
+  .card {
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 26px 22px;
-    box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    position: relative;
   }
-  .uc-card:hover {
-    transform: translateY(-5px);
+  .card:hover {
+    transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: var(--brand-soft);
+    border-color: #d2dae8;
   }
-  .uc-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
+  .card .ic {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: var(--brand-tint);
+    color: var(--brand);
     display: grid;
     place-items: center;
-    font-size: 1.1rem;
-    color: var(--brand);
-    background: var(--tint);
+    font-size: 1.05rem;
     margin-bottom: 18px;
-    transition: background 0.2s ease, color 0.2s ease;
   }
-  .uc-card:hover .uc-icon { background: var(--brand); color: #fff; }
-  .uc-card.feature {
-    background: linear-gradient(165deg, #2a2f8a, #1e2358);
-    border-color: transparent;
-  }
-  .uc-card.feature h3, .uc-card.feature p { color: #fff; }
-  .uc-card.feature p { color: rgba(255,255,255,0.78); }
-  .uc-card.feature .uc-icon { background: rgba(255,255,255,0.14); color: #5fe9cf; }
-  .uc-card.feature:hover .uc-icon { background: var(--cta); color: #fff; }
-  .uc-card .pill {
-    position: absolute;
-    top: 18px; right: 18px;
-    font-family: var(--font-head);
-    font-size: 0.66rem;
-    font-weight: 600;
+  .card h3 { font-size: 1.12rem; margin-bottom: 9px; font-weight: 600; }
+  .card p { font-size: 0.93rem; }
+  .card .tag {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: #5fe9cf;
-    background: rgba(14,179,149,0.18);
-    padding: 4px 9px;
+    color: var(--brand);
+    background: var(--brand-tint);
+    padding: 3px 9px;
     border-radius: 999px;
+    margin-bottom: 12px;
   }
-  .uc-card h3 { font-size: 1.12rem; margin-bottom: 9px; }
-  .uc-card p { font-size: 0.93rem; }
 
-  /* ---------- Feature showcase (checkerboard) ---------- */
-  .showcase { background: var(--surface); border-block: 1px solid var(--border); }
+  /* ---------- Product showcase ---------- */
+  .showcase { background: var(--bg-soft); }
   .feature-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 56px;
     align-items: center;
-    margin-bottom: 88px;
+    margin-bottom: 84px;
   }
   .feature-row:last-child { margin-bottom: 0; }
   .feature-row.reverse .feature-text { order: 2; }
-  .feature-num {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    font-family: var(--font-head);
+  .feature-text .step {
+    font-family: var(--sans);
     font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cta);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--brand);
   }
-  .feature-text h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 16px 0 14px; }
+  .feature-text h3 { font-size: clamp(1.5rem, 3vw, 2.05rem); margin: 14px 0 14px; font-weight: 600; }
   .feature-text p { font-size: 1.05rem; }
-  .feature-text .micro-list { display: grid; gap: 10px; margin-top: 22px; }
-  .feature-text .micro-list span { display: flex; gap: 10px; align-items: center; font-size: 0.96rem; color: var(--ink); font-weight: 500; }
-  .feature-text .micro-list i { color: var(--cta); }
-  .shot-frame {
+  .micro { display: grid; gap: 11px; margin-top: 22px; }
+  .micro span { display: flex; gap: 11px; align-items: center; font-size: 0.96rem; color: var(--ink); font-weight: 500; }
+  .micro i { color: var(--brand); }
+  .shot {
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
-    background: linear-gradient(165deg, var(--tint), #fff);
-    padding: 14px;
+    background: #fff;
+    padding: 12px;
     box-shadow: var(--shadow-md);
-    position: relative;
-    transition: transform 0.3s ease;
   }
-  .shot-frame:hover { transform: translateY(-4px); }
-  .shot-frame img {
+  .shot img {
     border-radius: 12px;
     width: 100%;
     border: 1px solid var(--border);
-    background: #fff;
     min-height: 180px;
+    background: var(--bg-soft);
   }
   .shot-fallback {
     display: none;
@@ -654,278 +416,191 @@
     justify-content: center;
     gap: 10px;
     border-radius: 12px;
-    background: var(--tint);
-    color: var(--ink-2);
-    font-family: var(--font-head);
+    background: var(--brand-tint);
+    color: var(--muted);
     font-weight: 500;
     aspect-ratio: 16 / 10;
     text-align: center;
     padding: 24px;
   }
 
-  /* ---------- Connected tools ---------- */
-  .tools-wrap { text-align: center; }
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-top: 8px;
-  }
-  .tool-chip {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 20px;
-    text-align: left;
-    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-  }
-  .tool-chip:hover {
-    transform: translateY(-3px);
-    border-color: var(--brand-soft);
-    box-shadow: var(--shadow-sm);
-  }
-  .tool-chip i {
-    color: var(--brand);
-    font-size: 1rem;
-    width: 38px; height: 38px;
-    display: grid; place-items: center;
-    background: var(--tint);
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-  .tool-chip span {
-    font-family: var(--font-head);
-    font-weight: 600;
-    font-size: 0.98rem;
-    color: var(--ink);
-  }
-
-  /* ---------- Workflow (dark) ---------- */
-  .workflow {
-    background:
-      radial-gradient(circle at 15% 0%, rgba(61,65,193,0.45), transparent 45%),
-      radial-gradient(circle at 90% 100%, rgba(14,179,149,0.28), transparent 45%),
-      #11163f;
-    color: #fff;
-  }
-  .workflow .section-head h2, .workflow .eyebrow { color: #fff; }
-  .workflow .eyebrow { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); color: #c1c5f4; }
-  .workflow .section-head p { color: rgba(255,255,255,0.72); }
-  .flow-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-  }
-  .flow-step {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: var(--radius);
-    padding: 28px 24px;
-    position: relative;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-  .flow-step:hover { transform: translateY(-4px); background: rgba(255,255,255,0.08); }
-  .flow-step .step-n {
-    font-family: var(--font-head);
+  /* ---------- Before / After ---------- */
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .ba-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; }
+  .ba-card.after { background: var(--brand); border-color: transparent; color: #fff; }
+  .ba-tag {
+    display: inline-block;
+    font-family: var(--sans);
     font-weight: 700;
-    font-size: 0.9rem;
-    color: #5fe9cf;
-    margin-bottom: 16px;
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
   }
-  .flow-step .flow-icon {
-    width: 50px; height: 50px;
-    border-radius: 13px;
-    display: grid; place-items: center;
-    font-size: 1.2rem;
+  .ba-card.before .ba-tag { background: var(--bg-soft); color: var(--muted); }
+  .ba-card.after .ba-tag { background: rgba(255, 255, 255, 0.18); color: #fff; }
+  .ba-card h3 { font-size: 1.3rem; margin-bottom: 20px; }
+  .ba-card.after h3 { color: #fff; }
+  .ba-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 13px; }
+  .ba-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 0.97rem; color: var(--muted); }
+  .ba-list.after-list li { color: rgba(255, 255, 255, 0.9); }
+  .ba-list i { margin-top: 4px; }
+  .ba-list.before-list i { color: #b9354f; }
+  .ba-list.after-list i { color: #bcd9c4; }
+
+  /* ---------- Workflow ---------- */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 48px; }
+  .flow-step { padding: 4px; }
+  .flow-step .n {
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    background: var(--brand);
     color: #fff;
-    background: linear-gradient(135deg, var(--brand), var(--accent));
+    display: grid; place-items: center;
+    font-size: 1.1rem;
     margin-bottom: 18px;
   }
-  .flow-step h3 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
-  .flow-step p { color: rgba(255,255,255,0.72); font-size: 0.95rem; }
+  .flow-step h3 { font-size: 1.18rem; margin-bottom: 9px; font-weight: 600; }
+  .flow-step p { font-size: 0.95rem; }
 
-  /* ---------- AI capabilities ---------- */
-  .ai-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .ai-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 26px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .ai-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-  .ai-card .uc-icon { background: linear-gradient(135deg, rgba(61,65,193,0.12), rgba(14,179,149,0.12)); }
-  .ai-card h3 { font-size: 1.1rem; margin-bottom: 9px; }
-  .ai-card p { font-size: 0.94rem; }
-
-  /* ---------- Leader dashboard ---------- */
-  .leader { background: var(--surface); border-block: 1px solid var(--border); }
-  .leader-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
-  }
-  .metric-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .metric-card {
+  /* ---------- Connected tools ---------- */
+  .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 44px; }
+  .tool {
+    display: flex; align-items: center; gap: 12px;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: border-color 0.18s ease, transform 0.18s ease;
   }
-  .metric-card i { color: var(--brand); font-size: 1.05rem; margin-bottom: 12px; display: block; }
-  .metric-card h4 { font-size: 1rem; margin-bottom: 5px; }
-  .metric-card p { font-size: 0.88rem; }
-  .metric-card.live { background: linear-gradient(165deg, #2a2f8a, #1e2358); border-color: transparent; }
-  .metric-card.live i { color: #5fe9cf; }
-  .metric-card.live h4 { color: #fff; }
-  .metric-card.live p { color: rgba(255,255,255,0.74); }
+  .tool:hover { border-color: #d2dae8; transform: translateY(-2px); }
+  .tool i {
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    background: var(--brand-tint);
+    color: var(--brand);
+    border-radius: 9px;
+    flex-shrink: 0;
+  }
+  .tool span { font-weight: 600; font-size: 0.96rem; color: var(--ink); }
+
+  /* ---------- Leaders ---------- */
+  .leader { background: var(--bg-soft); }
+  .leader-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .leader-list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 14px; }
+  .leader-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 1rem; color: var(--ink); }
+  .leader-list i { color: var(--brand); margin-top: 4px; }
+  .leader-list strong { font-weight: 600; }
 
   /* ---------- Personas ---------- */
-  .persona-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-  }
-  .persona-card {
-    background: var(--surface);
+  .persona-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 48px; }
+  .persona {
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 26px 20px;
+    padding: 26px 18px;
     text-align: center;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .persona-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--brand-soft);
-  }
-  .persona-card .uc-icon {
-    margin-inline: auto;
-    background: linear-gradient(135deg, var(--brand), var(--accent));
+  .persona:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .persona .ic {
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    background: var(--brand);
     color: #fff;
+    display: grid; place-items: center;
+    margin: 0 auto 14px;
+    font-size: 1.05rem;
   }
-  .persona-card h3 { font-size: 1.04rem; margin-bottom: 8px; }
-  .persona-card p { font-size: 0.88rem; }
+  .persona h3 { font-size: 1.02rem; margin-bottom: 7px; font-weight: 600; }
+  .persona p { font-size: 0.87rem; }
+
+  /* ---------- Logo strip ---------- */
+  .logos { padding-block: 64px; }
+  .logos .label {
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 60px;
+    align-items: center;
+    animation: scroll-x 40s linear infinite;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee-track img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.55;
+    transition: filter 0.25s ease, opacity 0.25s ease;
+  }
+  .marquee-track img:hover { filter: grayscale(0); opacity: 1; }
+  .logo-fallback { font-weight: 600; font-size: 1rem; color: var(--muted); white-space: nowrap; opacity: 0.6; }
+  @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* ---------- Final CTA ---------- */
-  .final-cta { padding-bottom: 0; }
-  .final-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 30px;
-    padding: clamp(44px, 7vw, 84px);
-    text-align: center;
-    background:
-      radial-gradient(circle at 12% 18%, rgba(61,65,193,0.55), transparent 45%),
-      radial-gradient(circle at 88% 85%, rgba(14,179,149,0.4), transparent 45%),
-      radial-gradient(circle at 60% 50%, rgba(154,0,91,0.28), transparent 55%),
-      #11163f;
-    color: #fff;
-  }
-  .final-card h2 { color: #fff; font-size: clamp(2rem, 4.6vw, 3.1rem); max-width: 760px; margin-inline: auto; }
-  .final-card p { color: rgba(255,255,255,0.82); font-size: 1.12rem; max-width: 580px; margin: 20px auto 0; }
-  .final-card .hero-cta { margin-top: 36px; }
+  .final { background: var(--brand); color: #fff; text-align: center; }
+  .final h2 { color: #fff; font-size: clamp(2rem, 4.4vw, 3rem); max-width: 680px; margin-inline: auto; }
+  .final p { color: rgba(255, 255, 255, 0.86); font-size: 1.1rem; max-width: 540px; margin: 18px auto 0; }
+  .final .hero-cta { justify-content: center; margin-top: 30px; }
 
   /* ---------- Footer ---------- */
-  footer.site {
-    padding-block: 56px 40px;
-  }
-  .footer-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 28px;
-    align-items: center;
-    padding-bottom: 28px;
-    border-bottom: 1px solid var(--border);
-  }
+  footer.site { background: #141a26; color: rgba(255, 255, 255, 0.66); padding-block: 56px 36px; }
+  .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 28px; align-items: center; padding-bottom: 28px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .footer-top .brand { color: #fff; }
   .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-  .footer-links a { font-size: 0.94rem; color: var(--ink-2); font-weight: 500; }
-  .footer-links a:hover { color: var(--brand); }
-  .footer-bottom {
-    margin-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-size: 0.86rem;
-    color: var(--ink-2);
-  }
+  .footer-links a { font-size: 0.94rem; color: rgba(255, 255, 255, 0.72); }
+  .footer-links a:hover { color: #fff; }
+  .footer-bottom { margin-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.85rem; }
 
-  /* ---------- Scroll reveal ---------- */
-  .reveal {
-    opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-    will-change: opacity, transform;
-  }
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in { opacity: 1; transform: none; }
 
   /* ---------- Responsive ---------- */
-  @media (max-width: 1024px) {
-    .cards-grid { grid-template-columns: repeat(2, 1fr); }
-    .tools-grid { grid-template-columns: repeat(3, 1fr); }
-    .flow-grid { grid-template-columns: repeat(2, 1fr); }
-    .ai-grid { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 1000px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .flow { grid-template-columns: repeat(2, 1fr); }
     .persona-grid { grid-template-columns: repeat(3, 1fr); }
   }
-  @media (max-width: 860px) {
+  @media (max-width: 820px) {
     .nav-links { display: none; }
     .nav-toggle { display: grid; place-items: center; }
-    .nav-actions .login { display: none; }
-    .problem-grid,
+    .nav-actions .login, .nav-actions .btn-ghost { display: none; }
+    .hero-grid,
+    .motion-grid,
     .leader-grid,
     .ba-grid,
     .feature-row,
     .feature-row.reverse .feature-text { grid-template-columns: 1fr; }
     .feature-row.reverse .feature-text { order: 0; }
-    .feature-row { gap: 30px; }
+    .hero-visual { max-width: 460px; margin-inline: auto; width: 100%; }
     .mobile-menu.open { display: block; }
   }
-  @media (max-width: 620px) {
-    .cards-grid,
-    .tools-grid,
-    .flow-grid,
-    .ai-grid,
-    .persona-grid,
-    .metric-grid { grid-template-columns: 1fr; }
-    .hero-cta .btn,
-    .final-card .hero-cta .btn { width: 100%; }
+  @media (max-width: 560px) {
+    .cards, .tools-grid, .flow, .persona-grid { grid-template-columns: 1fr; }
+    .hero-cta .btn, .final .btn { width: 100%; }
     section { padding-block: 64px; }
   }
 
   /* Mobile menu */
-  .mobile-menu {
-    display: none;
-    border-top: 1px solid var(--border);
-    background: var(--surface);
-    padding: 14px 22px 22px;
-  }
-  .mobile-menu a {
-    display: block;
-    padding: 12px 0;
-    font-family: var(--font-head);
-    font-weight: 500;
-    color: var(--ink);
-    border-bottom: 1px solid var(--border);
-  }
+  .mobile-menu { display: none; background: #fff; border-top: 1px solid var(--border); padding: 12px 24px 22px; }
+  .mobile-menu a { display: block; padding: 12px 0; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--border); }
   .mobile-menu .btn { width: 100%; margin-top: 14px; }
 
-  /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.001ms !important;
@@ -941,27 +616,21 @@
 <!-- ============================ NAV ============================ -->
 <header class="nav" id="nav">
   <div class="container nav-inner">
-    <a href="#top" class="brand" aria-label="Kaizen Helper home">
-      <span class="mark"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></span>
-      Kaizen Helper
-    </a>
+    <a href="#top" class="brand" aria-label="Kaizen Helper home">Kaizen Helper</a>
 
     <nav aria-label="Primary">
       <ul class="nav-links">
-        <li><a href="#use-cases">Use Cases</a></li>
-        <li><a href="#features">Product</a></li>
-        <li><a href="#tools">Tools</a></li>
-        <li><a href="#workflow">How it works</a></li>
-        <li><a href="#personas">Who it's for</a></li>
+        <li><a href="#capabilities">What you get</a></li>
+        <li><a href="#product">Product</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#who">Who it's for</a></li>
       </ul>
     </nav>
 
     <div class="nav-actions">
-      <a class="login" href="https://kaizenhelper.com/login">Login</a>
+      <a class="login" href="https://kaizenhelper.com/login">Log in</a>
       <a class="btn btn-ghost" href="https://kaizenhelper.com/register">Register</a>
-      <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-        Book Demo
-      </a>
+      <a class="btn btn-on-dark" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a demo</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
         <i class="fa-solid fa-bars" aria-hidden="true"></i>
       </button>
@@ -969,77 +638,52 @@
   </div>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#use-cases">Use Cases</a>
-    <a href="#features">Product</a>
-    <a href="#tools">Tools</a>
-    <a href="#workflow">How it works</a>
-    <a href="#personas">Who it's for</a>
-    <a href="https://kaizenhelper.com/login">Login</a>
+    <a href="#capabilities">What you get</a>
+    <a href="#product">Product</a>
+    <a href="#how">How it works</a>
+    <a href="#who">Who it's for</a>
+    <a href="https://kaizenhelper.com/login">Log in</a>
     <a class="btn btn-ghost" href="https://kaizenhelper.com/register">Register</a>
-    <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book Demo</a>
+    <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a demo</a>
   </div>
 </header>
 
 <main id="top">
   <!-- ============================ HERO ============================ -->
   <section class="hero">
-    <div class="hero-mesh" aria-hidden="true">
-      <span class="blob b1"></span>
-      <span class="blob b2"></span>
-      <span class="blob b3"></span>
-      <div class="hero-grid-bg"></div>
-    </div>
-
-    <div class="container hero-inner">
-      <span class="eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> AI for continuous improvement</span>
-      <h1>
-        Turn Daily Problems Into <span class="grad">Continuous Improvement</span> — Powered by AI
-      </h1>
-      <p class="sub">
-        Kaizen Helper helps teams capture abnormal conditions, analyze root causes, assign
-        countermeasures, and track improvement actions in one simple AI-powered workspace.
-      </p>
-
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Demo
-        </a>
-        <a class="btn btn-ghost" href="#features">
-          Explore Features <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
-        </a>
-      </div>
-
-      <div class="hero-trust">
-        <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Built for Lean teams</span>
-        <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> AI-assisted root cause analysis</span>
-        <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Real-time improvement visibility</span>
-      </div>
-    </div>
-
-    <!-- Product / AI visual: Lottie animation -->
-    <div class="container hero-visual reveal">
-      <div class="hero-frame">
-        <div class="hero-window-bar" aria-hidden="true">
-          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow" style="color:#bcd0ee">
+          <i class="fa-solid fa-bolt" aria-hidden="true"></i> AI for continuous improvement
+        </span>
+        <h1>Turn daily problems into continuous improvement</h1>
+        <p class="sub">
+          Capture the abnormal conditions you see every day, find the real root cause, assign a
+          countermeasure, and track it to done — all in one simple, AI-powered workspace your team
+          will actually use.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-on-dark" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a demo
+          </a>
+          <a class="btn btn-link" href="#product">Explore features <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
-        <div class="lottie-stage">
-          <!--
-            HERO ANIMATION — live product tour of the Kaizen Helper dashboard.
-            Self-contained file kaizen-hero.html sits beside index.html and is
-            embedded below. It autoplays, loops, and is self-contained
-            (screens load from the ./screens/ folder). To revert to Lottie,
-            restore the previous <dotlottie-wc> element here.
-          -->
-          <iframe
-            class="hero-anim"
-            src="kaizen-hero.html"
-            title="Kaizen Helper — live product tour"
-            scrolling="no"
-          ></iframe>
-          <div class="lottie-fallback" id="lottieFallback">
+        <div class="hero-trust">
+          <span><i class="fa-solid fa-check" aria-hidden="true"></i> Built for Lean teams</span>
+          <span><i class="fa-solid fa-check" aria-hidden="true"></i> AI-assisted root cause analysis</span>
+          <span><i class="fa-solid fa-check" aria-hidden="true"></i> Real-time visibility</span>
+        </div>
+      </div>
+
+      <!-- Hero animation (right column): the uploaded Lottie JSON -->
+      <div class="hero-visual">
+        <div class="stage">
+          <!-- HERO-LOTTIE — swap your hero animation here (local .json or .lottie) -->
+          <dotlottie-wc id="heroLottie" src="assets/hero-animation.json" autoplay loop></dotlottie-wc>
+          <div class="lottie-fallback" id="heroFallback">
             <div>
               <i class="fa-solid fa-chart-line" style="font-size:2rem;color:var(--brand)"></i>
-              <p style="margin-top:10px;font-weight:600;color:var(--ink)">Live improvement dashboard</p>
+              <p style="margin-top:10px;font-weight:600;color:var(--ink)">Continuous improvement, visualized</p>
             </div>
           </div>
         </div>
@@ -1047,47 +691,153 @@
     </div>
   </section>
 
-  <!-- ============================ LOGO STRIP ============================ -->
-  <section class="logos" aria-label="Trusted by">
-    <div class="container">
-      <p class="label">Trusted by organizations improving operations every day</p>
-    </div>
-    <div class="marquee">
-      <div class="marquee-track" id="logoTrack"><!-- populated by JS (duplicated for seamless loop) --></div>
+  <!-- ============================ KAIZEN ANIMATION BAND ============================ -->
+  <section class="motion-band">
+    <div class="container motion-grid">
+      <div class="reveal">
+        <span class="eyebrow"><i class="fa-solid fa-arrows-spin" aria-hidden="true"></i> See it in action</span>
+        <h2 style="font-size:clamp(1.8rem,3.8vw,2.6rem)">Stop chasing problems across spreadsheets and chats</h2>
+        <p style="margin-top:18px;font-size:1.06rem">
+          You already know where the problems are. What's hard is capturing them consistently, getting
+          to the real cause, and following through until they're solved. Kaizen Helper gives every
+          issue one home — so good ideas don't get logged once and quietly disappear.
+        </p>
+        <a class="btn btn-primary" style="margin-top:26px" href="https://kaizenhelper.com/register">
+          Get started <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="motion-stage reveal">
+        <!-- KAIZEN-ANIM — self-contained product tour (kaizen-hero.html sits beside this file) -->
+        <iframe
+          src="kaizen-hero.html"
+          title="Kaizen Helper — live product tour"
+          loading="lazy"
+          scrolling="no"
+        ></iframe>
+      </div>
     </div>
   </section>
 
-  <!-- ============================ PROBLEM ============================ -->
-  <section class="problem" id="problem">
-    <div class="container problem-grid">
-      <div class="reveal">
-        <span class="eyebrow"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> The problem</span>
-        <h2 style="font-size:clamp(1.7rem,3.6vw,2.5rem);margin-top:18px">
-          Improvement work breaks down when issues live in spreadsheets, notes, and scattered conversations.
-        </h2>
-        <p style="margin-top:18px;font-size:1.06rem">
-          Most teams know exactly where problems happen on the floor. What breaks down is everything
-          after that — capturing issues consistently, understanding the real cause, and following
-          through until the issue is actually solved. Good ideas get logged once, then quietly
-          disappear.
-        </p>
+  <!-- ============================ CAPABILITIES ============================ -->
+  <section id="capabilities">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> What you get</span>
+        <h2>Everything you need to close the loop</h2>
+        <p>Abnormal Condition Tracking sits at the center. Every other tool connects back to it, so nothing falls through the cracks.</p>
       </div>
-      <div class="pain-list reveal">
-        <div class="pain-item">
-          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
-          <div><strong>Issues scatter</strong> across spreadsheets, sticky notes, emails, and meeting minutes.</div>
+      <div class="cards">
+        <article class="card reveal">
+          <span class="tag">Hero use case</span>
+          <div class="ic"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></div>
+          <h3>Abnormal Condition Tracking</h3>
+          <p>Log recurring issues the moment you see them — before they disappear into a spreadsheet or become a bigger problem.</p>
+        </article>
+        <article class="card reveal">
+          <div class="ic"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></div>
+          <h3>Root cause analysis</h3>
+          <p>Move past the symptom. AI suggests likely causes and runs 5 Why investigations your team confirms.</p>
+        </article>
+        <article class="card reveal">
+          <div class="ic"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div>
+          <h3>Corrective actions</h3>
+          <p>Give every action an owner, a due date, and a visible follow-up path — so commitments actually get done.</p>
+        </article>
+        <article class="card reveal">
+          <div class="ic"><i class="fa-solid fa-chart-column" aria-hidden="true"></i></div>
+          <h3>Reporting &amp; trends</h3>
+          <p>See open issues, overdue actions, recurring conditions, and progress in one clear view.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PRODUCT SHOWCASE ============================ -->
+  <section class="showcase" id="product">
+    <div class="container">
+      <div class="section-head center reveal" style="margin-bottom:56px">
+        <span class="eyebrow"><i class="fa-solid fa-display" aria-hidden="true"></i> Product tour</span>
+        <h2>The workspace your team works in every day</h2>
+        <p>Real screens from Kaizen Helper — from capturing an issue to watching it close.</p>
+      </div>
+
+      <!-- Feature 1 -->
+      <div class="feature-row reveal">
+        <div class="feature-text">
+          <span class="step">01 — Abnormal conditions</span>
+          <h3>Abnormality Conditions Dashboard</h3>
+          <p>Capture recurring abnormal conditions, analyze their root causes, and implement solutions that stick — with AI-powered insights guiding the way.</p>
+          <div class="micro">
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Every reported condition in one place</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Status, owner, and severity at a glance</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> AI surfaces patterns across recurring issues</span>
+          </div>
         </div>
-        <div class="pain-item">
-          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-          <div><strong>Root causes stay unclear</strong> — teams treat symptoms instead of the source.</div>
+        <div class="shot">
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/kaizen-helper-AC-screen.png"
+            alt="Kaizen Helper abnormal conditions dashboard with logged issues, status, and owners"
+            loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="shot-fallback"><i class="fa-solid fa-image"></i> Abnormality Conditions Dashboard</div>
         </div>
-        <div class="pain-item">
-          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
-          <div><strong>Follow-ups get lost</strong> with no owner, due date, or visible status.</div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-row reverse reveal">
+        <div class="feature-text">
+          <span class="step">02 — AI capture</span>
+          <h3>Add abnormal conditions by speaking to Kaizen AI</h3>
+          <p>Let your frontline report issues in plain language. A simple, AI-assisted workflow cuts the friction and keeps reporting consistent.</p>
+          <div class="micro">
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Report an issue in seconds, in your own words</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> AI structures it into a clean record</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Less paperwork, more consistency</span>
+          </div>
         </div>
-        <div class="pain-item">
-          <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
-          <div><strong>The same problems return</strong> because nothing closed the loop the first time.</div>
+        <div class="shot">
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-report-ac.png"
+            alt="Reporting an abnormal condition through Kaizen Helper's AI-assisted capture flow"
+            loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="shot-fallback"><i class="fa-solid fa-image"></i> AI-Assisted AC Reporting</div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-row reveal">
+        <div class="feature-text">
+          <span class="step">03 — Meetings &amp; to-dos</span>
+          <h3>Manage meetings and to-dos in one place</h3>
+          <p>Create meetings, track action items, assign owners, and keep every improvement follow-up visible.</p>
+          <div class="micro">
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Action items linked to the issues they fix</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Owners and due dates on every commitment</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Nothing slips between meetings</span>
+          </div>
+        </div>
+        <div class="shot">
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-meeting.png"
+            alt="Kaizen Helper meeting and action item management view"
+            loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="shot-fallback"><i class="fa-solid fa-image"></i> Meetings &amp; To-Dos</div>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-row reverse reveal">
+        <div class="feature-text">
+          <span class="step">04 — KPIs &amp; trends</span>
+          <h3>Real-time KPI and trend dashboard</h3>
+          <p>Track KPIs, trends, statuses, recurring issues, and action progress from one intuitive, data-driven dashboard.</p>
+          <div class="micro">
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Open, overdue, and completed at a glance</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Spot recurring conditions before they grow</span>
+            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Trends you can actually act on</span>
+          </div>
+        </div>
+        <div class="shot">
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-AC_dashboard.png"
+            alt="Kaizen Helper real-time KPI and trend dashboard"
+            loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="shot-fallback"><i class="fa-solid fa-image"></i> KPI &amp; Trend Dashboard</div>
         </div>
       </div>
     </div>
@@ -1098,379 +848,149 @@
     <div class="container">
       <div class="section-head center reveal">
         <span class="eyebrow"><i class="fa-solid fa-right-left" aria-hidden="true"></i> Before vs after</span>
-        <h2>From scattered tracking to a connected improvement workflow</h2>
-        <p>The difference isn't more effort — it's giving every problem one place to live, one cause to fix, and one owner to close it out.</p>
+        <h2>From scattered notes to a clear improvement workflow</h2>
+        <p>The difference isn't more effort — it's giving every problem one place to live and one owner to close it out.</p>
       </div>
       <div class="ba-grid">
         <div class="ba-card before reveal">
-          <span class="ba-tag">Manual tracking</span>
-          <h3>The way it works today</h3>
+          <span class="ba-tag">Today</span>
+          <h3>Tracking by hand</h3>
           <ul class="ba-list before-list">
-            <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Issues scattered across spreadsheets, notes, emails, and meetings</li>
+            <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Issues scattered across spreadsheets, notes, and emails</li>
             <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Root causes are unclear and rarely documented</li>
             <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Follow-ups get lost between shifts and owners</li>
-            <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Leaders lack visibility into what's open or overdue</li>
-            <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Recurring problems keep coming back</li>
+            <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> Leaders can't see what's open or overdue</li>
+            <li><i class="fa-solid fa-xmark" aria-hidden="true"></i> The same problems keep coming back</li>
           </ul>
         </div>
         <div class="ba-card after reveal">
-          <span class="ba-tag"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> With Kaizen Helper</span>
-          <h3>AI-powered improvement</h3>
+          <span class="ba-tag">With Kaizen Helper</span>
+          <h3>Improvement that sticks</h3>
           <ul class="ba-list after-list">
             <li><i class="fa-solid fa-check" aria-hidden="true"></i> Abnormal conditions captured in one place</li>
-            <li><i class="fa-solid fa-check" aria-hidden="true"></i> AI helps identify patterns and likely root causes</li>
+            <li><i class="fa-solid fa-check" aria-hidden="true"></i> AI helps surface patterns and likely root causes</li>
             <li><i class="fa-solid fa-check" aria-hidden="true"></i> Countermeasures are assigned, owned, and tracked</li>
             <li><i class="fa-solid fa-check" aria-hidden="true"></i> Leaders see open issues, overdue actions, and trends</li>
-            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Teams sustain improvement over time</li>
+            <li><i class="fa-solid fa-check" aria-hidden="true"></i> Your team sustains improvement over time</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================ USE CASES ============================ -->
-  <section id="use-cases">
+  <!-- ============================ WORKFLOW ============================ -->
+  <section id="how">
     <div class="container">
-      <div class="section-head center reveal">
-        <span class="eyebrow"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Core use cases</span>
-        <h2>Everything your improvement work needs — in one workspace</h2>
-        <p>Abnormal Condition Tracking sits at the center. Every other workflow connects back to it.</p>
+      <div class="section-head reveal">
+        <span class="eyebrow"><i class="fa-solid fa-arrows-spin" aria-hidden="true"></i> How it works</span>
+        <h2>Capture. Analyze. Act. Sustain.</h2>
+        <p>A simple loop that takes a problem from reported on the floor to a countermeasure that holds.</p>
       </div>
-      <div class="cards-grid">
-        <article class="uc-card feature reveal">
-          <span class="pill">Hero use case</span>
-          <div class="uc-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></div>
-          <h3>Abnormal Condition Tracking</h3>
-          <p>Capture recurring issues before they disappear into spreadsheets — and watch them through to a countermeasure.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></div>
-          <h3>Root Cause Analysis</h3>
-          <p>Move past symptoms with AI-assisted analysis that points to the likely source of the problem.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-recycle" aria-hidden="true"></i></div>
-          <h3>Waste &amp; Gap Identification</h3>
-          <p>Surface the eight wastes and process gaps so teams can target what actually slows them down.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div>
-          <h3>Corrective Action Tracking</h3>
-          <p>Give every action an owner, due date, and visible follow-up path — no more lost commitments.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-person-walking" aria-hidden="true"></i></div>
-          <h3>Gemba Walk Follow-ups</h3>
-          <p>Turn observations from the floor into tracked items instead of notes that never leave the clipboard.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></div>
-          <h3>5 Why Analysis</h3>
-          <p>Run structured 5 Why investigations and keep the reasoning attached to the issue it solved.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-users-gear" aria-hidden="true"></i></div>
-          <h3>Team Accountability</h3>
-          <p>Make ownership clear so the right people know what's theirs and what's due next.</p>
-        </article>
-        <article class="uc-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-chart-column" aria-hidden="true"></i></div>
-          <h3>Continuous Improvement Reporting</h3>
-          <p>Show progress with trends, recurring issues, and completion rates leadership can act on.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ FEATURE SHOWCASE ============================ -->
-  <section class="showcase" id="features">
-    <div class="container">
-      <div class="section-head center reveal">
-        <span class="eyebrow"><i class="fa-solid fa-display" aria-hidden="true"></i> Product tour</span>
-        <h2>See how teams capture, analyze, and close out issues</h2>
-        <p>Real screens from the workspace your team works in every day.</p>
-      </div>
-
-      <!-- Feature 1 -->
-      <div class="feature-row reveal">
-        <div class="feature-text">
-          <span class="feature-num"><i class="fa-solid fa-1" aria-hidden="true"></i> Abnormal Conditions</span>
-          <h3>Abnormality Conditions Dashboard</h3>
-          <p>Capture recurring abnormal conditions or issues, analyze their root causes, and implement sustainable solutions using AI-powered insights.</p>
-          <div class="micro-list">
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> One home for every reported condition</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Status, owner, and severity at a glance</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> AI-surfaced patterns across recurring issues</span>
-          </div>
+      <div class="flow">
+        <div class="flow-step reveal">
+          <div class="n"><i class="fa-solid fa-inbox" aria-hidden="true"></i></div>
+          <h3>Capture</h3>
+          <p>Log abnormal conditions, waste, gaps, observations, and follow-ups as they happen.</p>
         </div>
-        <div class="shot-frame">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/kaizen-helper-AC-screen.png"
-            alt="Kaizen Helper abnormal conditions dashboard showing logged issues, status, and owners"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-fallback"><i class="fa-solid fa-image"></i> Abnormality Conditions Dashboard</div>
+        <div class="flow-step reveal">
+          <div class="n"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
+          <h3>Analyze</h3>
+          <p>AI helps you spot patterns, likely root causes, and improvement opportunities.</p>
         </div>
-      </div>
-
-      <!-- Feature 2 -->
-      <div class="feature-row reverse reveal">
-        <div class="feature-text">
-          <span class="feature-num"><i class="fa-solid fa-2" aria-hidden="true"></i> AI capture</span>
-          <h3>Add Abnormal Conditions by Speaking to Kaizen AI</h3>
-          <p>Let frontline teams quickly report issues using a simple AI-assisted workflow that reduces friction and improves consistency.</p>
-          <div class="micro-list">
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Report an issue in seconds, in your own words</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> AI structures the details into a clean record</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Less paperwork, more consistent reporting</span>
-          </div>
+        <div class="flow-step reveal">
+          <div class="n"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></div>
+          <h3>Act</h3>
+          <p>Assign countermeasures, owners, due dates, and follow-up actions.</p>
         </div>
-        <div class="shot-frame">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-report-ac.png"
-            alt="Reporting an abnormal condition through Kaizen Helper's AI-assisted capture flow"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-fallback"><i class="fa-solid fa-image"></i> AI-Assisted AC Reporting</div>
-        </div>
-      </div>
-
-      <!-- Feature 3 -->
-      <div class="feature-row reveal">
-        <div class="feature-text">
-          <span class="feature-num"><i class="fa-solid fa-3" aria-hidden="true"></i> Meetings &amp; actions</span>
-          <h3>Manage Meetings and To-Dos in One Place</h3>
-          <p>Create meetings, track action items, assign owners, and keep improvement follow-ups visible.</p>
-          <div class="micro-list">
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Action items linked to the issues they fix</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Owners and due dates on every commitment</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Nothing slips between meetings</span>
-          </div>
-        </div>
-        <div class="shot-frame">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-meeting.png"
-            alt="Kaizen Helper meeting and action item management view"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-fallback"><i class="fa-solid fa-image"></i> Meetings &amp; To-Dos</div>
-        </div>
-      </div>
-
-      <!-- Feature 4 -->
-      <div class="feature-row reverse reveal">
-        <div class="feature-text">
-          <span class="feature-num"><i class="fa-solid fa-4" aria-hidden="true"></i> KPIs &amp; trends</span>
-          <h3>Real-Time KPI and Trend Dashboard</h3>
-          <p>Track KPIs, trends, statuses, recurring issues, and action progress from an intuitive data-driven dashboard.</p>
-          <div class="micro-list">
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Open, overdue, and completed at a glance</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Spot recurring conditions before they grow</span>
-            <span><i class="fa-solid fa-check" aria-hidden="true"></i> Trends leaders can actually act on</span>
-          </div>
-        </div>
-        <div class="shot-frame">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-AC_dashboard.png"
-            alt="Kaizen Helper real-time KPI and trend dashboard"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-fallback"><i class="fa-solid fa-image"></i> KPI &amp; Trend Dashboard</div>
+        <div class="flow-step reveal">
+          <div class="n"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
+          <h3>Sustain</h3>
+          <p>Track completion, recurring issues, and trends — with visibility for leaders over time.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================ CONNECTED TOOLS ============================ -->
-  <section id="tools">
-    <div class="container tools-wrap">
+  <section class="showcase" id="tools">
+    <div class="container">
       <div class="section-head center reveal">
         <span class="eyebrow"><i class="fa-solid fa-cubes" aria-hidden="true"></i> Connected Kaizen tools</span>
-        <h2>An operating system for continuous improvement</h2>
-        <p>Not a pile of disconnected apps — a set of Lean tools that share the same issues, owners, and data, so insight in one place shows up everywhere it matters.</p>
+        <h2>One operating system for continuous improvement</h2>
+        <p>Not a pile of disconnected apps — a set of Lean tools that share the same issues, owners, and data.</p>
       </div>
       <div class="tools-grid">
-        <div class="tool-chip reveal"><i class="fa-solid fa-file-contract" aria-hidden="true"></i><span>A3 Report</span></div>
-        <div class="tool-chip reveal"><i class="fa-solid fa-recycle" aria-hidden="true"></i><span>Waste Analysis</span></div>
-        <div class="tool-chip reveal"><i class="fa-solid fa-person-walking" aria-hidden="true"></i><span>Gemba Walkthrough</span></div>
-        <div class="tool-chip reveal"><i class="fa-solid fa-chart-gantt" aria-hidden="true"></i><span>TPS Gap Analysis</span></div>
-        <div class="tool-chip reveal"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i><span>Scorecard</span></div>
-        <div class="tool-chip reveal"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Job Instruction Breakdown</span></div>
-        <div class="tool-chip reveal"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span>Input Productivity Record</span></div>
-        <div class="tool-chip reveal" style="background:linear-gradient(135deg,var(--brand),var(--accent));border-color:transparent">
-          <i class="fa-solid fa-plus" style="background:rgba(255,255,255,0.2);color:#fff" aria-hidden="true"></i>
+        <div class="tool reveal"><i class="fa-solid fa-file-contract" aria-hidden="true"></i><span>A3 Report</span></div>
+        <div class="tool reveal"><i class="fa-solid fa-recycle" aria-hidden="true"></i><span>Waste Analysis</span></div>
+        <div class="tool reveal"><i class="fa-solid fa-person-walking" aria-hidden="true"></i><span>Gemba Walkthrough</span></div>
+        <div class="tool reveal"><i class="fa-solid fa-chart-gantt" aria-hidden="true"></i><span>TPS Gap Analysis</span></div>
+        <div class="tool reveal"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i><span>Scorecard</span></div>
+        <div class="tool reveal"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Job Instruction Breakdown</span></div>
+        <div class="tool reveal"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span>Input Productivity Record</span></div>
+        <div class="tool reveal" style="background:var(--brand);border-color:transparent">
+          <i style="background:rgba(255,255,255,0.2);color:#fff" class="fa-solid fa-plus" aria-hidden="true"></i>
           <span style="color:#fff">All connected</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================ WORKFLOW (DARK) ============================ -->
-  <section class="workflow" id="workflow">
-    <div class="container">
-      <div class="section-head center reveal">
-        <span class="eyebrow"><i class="fa-solid fa-arrows-spin" aria-hidden="true"></i> The workflow</span>
-        <h2>Capture. Analyze. Act. Sustain.</h2>
-        <p>A simple loop that turns a problem reported on the floor into a countermeasure that sticks.</p>
-      </div>
-      <div class="flow-grid">
-        <div class="flow-step reveal">
-          <div class="step-n">01</div>
-          <div class="flow-icon"><i class="fa-solid fa-inbox" aria-hidden="true"></i></div>
-          <h3>Capture</h3>
-          <p>Teams log abnormal conditions, waste, gaps, observations, and follow-up items as they happen.</p>
-        </div>
-        <div class="flow-step reveal">
-          <div class="step-n">02</div>
-          <div class="flow-icon"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
-          <h3>Analyze</h3>
-          <p>AI helps identify patterns, likely root causes, and improvement opportunities.</p>
-        </div>
-        <div class="flow-step reveal">
-          <div class="step-n">03</div>
-          <div class="flow-icon"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></div>
-          <h3>Act</h3>
-          <p>Assign countermeasures, owners, due dates, and follow-up actions.</p>
-        </div>
-        <div class="flow-step reveal">
-          <div class="step-n">04</div>
-          <div class="flow-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
-          <h3>Sustain</h3>
-          <p>Track completion, recurring issues, trends, and leadership visibility over time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ AI CAPABILITIES ============================ -->
-  <section id="ai">
-    <div class="container">
-      <div class="section-head center reveal">
-        <span class="eyebrow"><i class="fa-solid fa-microchip" aria-hidden="true"></i> How the AI helps</span>
-        <h2>Practical AI that supports real problem-solving</h2>
-        <p>No magic, no exaggeration — just help with the parts of improvement work that usually slow teams down.</p>
-      </div>
-      <div class="ai-grid">
-        <div class="ai-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-wave-square" aria-hidden="true"></i></div>
-          <h3>Pattern detection</h3>
-          <p>Connects related conditions so recurring problems become visible, not buried in the backlog.</p>
-        </div>
-        <div class="ai-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></div>
-          <h3>Root cause suggestions</h3>
-          <p>Proposes likely causes to focus an investigation — your team confirms what's right.</p>
-        </div>
-        <div class="ai-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></div>
-          <h3>Countermeasure recommendations</h3>
-          <p>Suggests practical next steps based on how similar issues were resolved before.</p>
-        </div>
-        <div class="ai-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></div>
-          <h3>Follow-up visibility</h3>
-          <p>Keeps open and overdue actions in front of the people who own them.</p>
-        </div>
-        <div class="ai-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-file-lines" aria-hidden="true"></i></div>
-          <h3>Improvement trend summaries</h3>
-          <p>Turns activity into clear summaries leaders can read in a minute.</p>
-        </div>
-        <div class="ai-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></div>
-          <h3>Faster issue documentation</h3>
-          <p>Structures messy, in-the-moment reports into clean, consistent records.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ LEADER DASHBOARD ============================ -->
+  <!-- ============================ LEADERS ============================ -->
   <section class="leader" id="leaders">
     <div class="container leader-grid">
       <div class="reveal">
         <span class="eyebrow"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> For leaders</span>
-        <h2 style="font-size:clamp(1.7rem,3.6vw,2.4rem);margin-top:18px">
-          The visibility managers have been missing
-        </h2>
+        <h2 style="font-size:clamp(1.8rem,3.8vw,2.6rem)">The visibility you've been missing</h2>
         <p style="margin-top:18px;font-size:1.06rem">
-          Stop chasing status in meetings and inboxes. See open issues, overdue actions, and recurring
-          conditions in one view — and hold improvement work accountable by team or owner.
+          Stop chasing status in meetings and inboxes. See what's open, what's overdue, and what keeps
+          coming back — and hold improvement work accountable by team or owner.
         </p>
-        <a class="btn btn-primary" style="margin-top:26px" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+        <a class="btn btn-primary" style="margin-top:24px" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
           <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> See it on your data
         </a>
       </div>
-      <div class="metric-grid reveal">
-        <div class="metric-card live">
-          <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
-          <h4>Open issues</h4>
-          <p>Every active abnormal condition, in one live list.</p>
-        </div>
-        <div class="metric-card">
-          <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
-          <h4>Overdue actions</h4>
-          <p>Know what's slipping before it becomes a problem.</p>
-        </div>
-        <div class="metric-card">
-          <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
-          <h4>Recurring conditions</h4>
-          <p>Spot issues that keep coming back across the floor.</p>
-        </div>
-        <div class="metric-card">
-          <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
-          <h4>Improvement trends</h4>
-          <p>Track whether the work is actually moving the needle.</p>
-        </div>
-        <div class="metric-card">
-          <i class="fa-solid fa-user-check" aria-hidden="true"></i>
-          <h4>Accountability</h4>
-          <p>See progress by team or owner, not just in aggregate.</p>
-        </div>
-        <div class="metric-card">
-          <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
-          <h4>Corrective action status</h4>
-          <p>From assigned to completed, with nothing in between lost.</p>
-        </div>
-      </div>
+      <ul class="leader-list reveal">
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> <span><strong>Open issues</strong> — every active abnormal condition in one live list.</span></li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> <span><strong>Overdue actions</strong> — know what's slipping before it becomes a problem.</span></li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> <span><strong>Recurring conditions</strong> — spot issues that keep returning across the floor.</span></li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> <span><strong>Improvement trends</strong> — see whether the work is moving the needle.</span></li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> <span><strong>Accountability</strong> — track progress by team or owner, not just in aggregate.</span></li>
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> <span><strong>Corrective action status</strong> — from assigned to completed, nothing lost in between.</span></li>
+      </ul>
     </div>
   </section>
 
   <!-- ============================ PERSONAS ============================ -->
-  <section id="personas">
+  <section id="who">
     <div class="container">
       <div class="section-head center reveal">
         <span class="eyebrow"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Who it's for</span>
         <h2>Built for the people who run improvement</h2>
-        <p>From the floor to the front office — everyone works from the same source of truth.</p>
+        <p>From the floor to the front office, everyone works from the same source of truth.</p>
       </div>
       <div class="persona-grid">
-        <article class="persona-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-gears" aria-hidden="true"></i></div>
+        <article class="persona reveal">
+          <div class="ic"><i class="fa-solid fa-gears" aria-hidden="true"></i></div>
           <h3>Operations teams</h3>
           <p>Keep daily issues moving toward resolution without the spreadsheet sprawl.</p>
         </article>
-        <article class="persona-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-compass-drafting" aria-hidden="true"></i></div>
+        <article class="persona reveal">
+          <div class="ic"><i class="fa-solid fa-compass-drafting" aria-hidden="true"></i></div>
           <h3>Lean leaders</h3>
           <p>Run real Kaizen with the tools and data your methodology depends on.</p>
         </article>
-        <article class="persona-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-user-tie" aria-hidden="true"></i></div>
+        <article class="persona reveal">
+          <div class="ic"><i class="fa-solid fa-user-tie" aria-hidden="true"></i></div>
           <h3>Supervisors</h3>
           <p>Capture problems on the floor and assign clear follow-ups in seconds.</p>
         </article>
-        <article class="persona-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+        <article class="persona reveal">
+          <div class="ic"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
           <h3>CI managers</h3>
           <p>Prove impact with trends, completion rates, and accountability by team.</p>
         </article>
-        <article class="persona-card reveal">
-          <div class="uc-icon"><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i></div>
+        <article class="persona reveal">
+          <div class="ic"><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i></div>
           <h3>Frontline teams</h3>
           <p>Report what you see in plain language — AI handles the structure.</p>
         </article>
@@ -1478,23 +998,26 @@
     </div>
   </section>
 
-  <!-- ============================ FINAL CTA ============================ -->
-  <section class="final-cta">
+  <!-- ============================ LOGO STRIP ============================ -->
+  <section class="logos" aria-label="Trusted by">
     <div class="container">
-      <div class="final-card reveal">
-        <h2>Start building a stronger improvement culture.</h2>
-        <p>
-          Give every problem a place to live, a likely cause to fix, and a clear owner to close it
-          out — with the visibility to make improvement actually stick.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Demo
-          </a>
-          <a class="btn btn-outline-light" href="https://kaizenhelper.com/register">
-            Register <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-          </a>
-        </div>
+      <p class="label">Trusted by organizations improving operations every day</p>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track" id="logoTrack"></div>
+    </div>
+  </section>
+
+  <!-- ============================ FINAL CTA ============================ -->
+  <section class="final">
+    <div class="container">
+      <h2>Start building a stronger improvement culture</h2>
+      <p>Give every problem a place to live, a likely cause to fix, and a clear owner to close it out — with the visibility to make it stick.</p>
+      <div class="hero-cta">
+        <a class="btn btn-on-dark" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a demo
+        </a>
+        <a class="btn btn-link" href="https://kaizenhelper.com/register">Register <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
@@ -1503,20 +1026,17 @@
 <!-- ============================ FOOTER ============================ -->
 <footer class="site">
   <div class="container">
-    <div class="footer-grid">
-      <a href="#top" class="brand">
-        <span class="mark"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></span>
-        Kaizen Helper
-      </a>
+    <div class="footer-top">
+      <a href="#top" class="brand">Kaizen Helper</a>
       <nav class="footer-links" aria-label="Footer">
-        <a href="#use-cases">Use Cases</a>
-        <a href="#features">Product</a>
-        <a href="#tools">Tools</a>
-        <a href="#workflow">How it works</a>
-        <a href="https://kaizenhelper.com/login">Login</a>
+        <a href="#capabilities">What you get</a>
+        <a href="#product">Product</a>
+        <a href="#how">How it works</a>
+        <a href="#who">Who it's for</a>
+        <a href="https://kaizenhelper.com/login">Log in</a>
         <a href="https://kaizenhelper.com/register">Register</a>
       </nav>
-      <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book Demo</a>
+      <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a demo</a>
     </div>
     <div class="footer-bottom">
       <span>&copy; <span id="year"></span> Kaizen Helper. Continuous improvement, powered by AI.</span>
@@ -1526,21 +1046,19 @@
 </footer>
 
 <script>
-  // ---------- Sticky nav shadow ----------
+  // Sticky nav: switch to solid white once the hero scrolls past
   const nav = document.getElementById("nav");
-  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 60);
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // ---------- Mobile menu ----------
+  // Mobile menu
   const toggle = document.getElementById("navToggle");
   const menu = document.getElementById("mobileMenu");
   toggle.addEventListener("click", () => {
     const open = menu.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.innerHTML = open
-      ? '<i class="fa-solid fa-xmark"></i>'
-      : '<i class="fa-solid fa-bars"></i>';
+    toggle.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
   });
   menu.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
@@ -1550,10 +1068,10 @@
     })
   );
 
-  // ---------- Year ----------
+  // Year
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // ---------- Logo strip (duplicated for seamless loop, with fallbacks) ----------
+  // Logo strip — duplicated for a seamless loop, with text fallbacks
   const logos = [
     { name: "Toyota", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Untitled+design+(4).png" },
     { name: "Chick-fil-A", src: "https://cfalean365.com/wp-content/uploads/2026/01/Chick-fil-A_Logo.svg-1-scaled.png" },
@@ -1561,18 +1079,16 @@
     { name: "R&S Logistics", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Rns.png" },
     { name: "Red Stag Fulfillment", src: "https://lean365-media.s3.us-east-2.amazonaws.com/redstag2.png" },
     { name: "Regulator Marine", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Regulator-logo.png" },
-    { name: "Stratus Systems", src: "https://lean365-media.s3.us-east-2.amazonaws.com/stratus-logo.png", lightBg: true },
-    { name: "Protomet", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Protomet-Logo.webp", lightBg: true },
+    { name: "Stratus Systems", src: "https://lean365-media.s3.us-east-2.amazonaws.com/stratus-logo.png" },
+    { name: "Protomet", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Protomet-Logo.webp" },
     { name: "Keystone Kitchens", src: "https://lean365-media.s3.us-east-2.amazonaws.com/Untitled+design+(5).png" },
   ];
-
   const track = document.getElementById("logoTrack");
   function buildLogo(logo) {
     const img = document.createElement("img");
     img.src = logo.src;
     img.alt = logo.name + " logo";
     img.loading = "lazy";
-    if (logo.lightBg) img.classList.add("logo-light-bg");
     img.onerror = () => {
       const span = document.createElement("span");
       span.className = "logo-fallback";
@@ -1581,10 +1097,9 @@
     };
     return img;
   }
-  // Two passes = seamless -50% loop
   [...logos, ...logos].forEach((logo) => track.appendChild(buildLogo(logo)));
 
-  // ---------- Scroll reveal ----------
+  // Scroll reveal (respects reduced motion)
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const reveals = document.querySelectorAll(".reveal");
   if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -1593,10 +1108,7 @@
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
         });
       },
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
@@ -1604,14 +1116,13 @@
     reveals.forEach((el) => io.observe(el));
   }
 
-  // ---------- Lottie fallback (if the web component fails to load) ----------
+  // Hero Lottie fallback if the web component fails to upgrade
   window.addEventListener("load", () => {
     setTimeout(() => {
       const el = document.getElementById("heroLottie");
-      // If the custom element never upgraded, show the static fallback.
-      if (el && !(customElements.get("dotlottie-wc"))) {
+      if (el && !customElements.get("dotlottie-wc")) {
         el.style.display = "none";
-        document.getElementById("lottieFallback").style.display = "grid";
+        document.getElementById("heroFallback").style.display = "grid";
       }
     }, 2500);
   });
