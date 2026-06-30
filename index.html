@@ -959,49 +959,264 @@ header.nav.menu-open .nav-toggle {
 }
 .b-urlbar i { color: #888; font-size: 0.65rem; }
 .b-urlbar span { font-size: 0.7rem; color: #555; overflow: hidden; white-space: nowrap; }
-.browser-body { background: var(--bg); line-height: 0; }
+.browser-body { background: var(--bg); line-height: 0; position: relative; }
 .browser-body img {
   width: 100%;
-  display: block;
-  min-height: 220px;
+  display: none; /* hidden until onload fires; mock shows instead */
   object-fit: cover;
-  object-position: top left;
+  object-position: top center;
 }
-/* Premium placeholder — shown when image fails to load */
-.browser-body .shot-ph {
-  display: none; /* toggled via JS onerror */
+
+/* ── Rich product UI mock (always visible; hidden once real image loads) ── */
+.shot-ph {
+  display: flex;
   flex-direction: column;
+  background: var(--bg);
+  min-height: 340px;
+  overflow: hidden;
+  font-family: var(--sans);
+  line-height: 1.4;
+}
+
+/* Mock shared atoms */
+.mock-header {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  min-height: 280px;
-  background: linear-gradient(145deg, var(--bg-soft) 0%, var(--brand-tint) 100%);
-  padding: 48px;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border-soft);
+  flex-shrink: 0;
 }
-.shot-ph-icon {
-  width: 60px;
-  height: 60px;
-  background: var(--brand);
-  color: #fff;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  font-size: 1.4rem;
-  box-shadow: 0 4px 20px rgba(44,80,135,.3);
+.mock-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 5px;
 }
-.shot-ph-title {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ink);
-  text-align: center;
+.mock-tag.tag-blue { background: var(--brand-tint); color: var(--brand); }
+.mock-chips { display: flex; gap: 5px; flex-wrap: wrap; }
+.mock-chip {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
 }
-.shot-ph-sub {
-  font-size: 0.83rem;
+.chip-r { background:#fff0f0; color:var(--crimson); }
+.chip-a { background:#fff9e6; color:#92620a; }
+.chip-g { background:#ecfdf5; color:#059669; }
+.chip-b { background:var(--brand-tint); color:var(--brand); }
+
+.mock-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  display: inline-block;
+}
+.badge-prog { background:var(--brand-tint); color:var(--brand); }
+.badge-open { background:#fff9e6; color:#92620a; }
+.badge-ov   { background:#fff0f0; color:var(--crimson); }
+.badge-done { background:#ecfdf5; color:#059669; }
+
+/* Mock table (feature 1) */
+.mock-table { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.mock-row-h {
+  display:grid;
+  grid-template-columns: 4px 1fr 62px 48px 74px;
+  gap: 0 8px;
+  padding: 7px 14px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+.mock-th {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
-  text-align: center;
-  max-width: 220px;
-  line-height: 1.55;
+}
+.mock-row-r {
+  display:grid;
+  grid-template-columns: 4px 1fr 62px 48px 74px;
+  gap: 0 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.mock-row-r:hover { background: var(--bg-soft); }
+.mock-row-r.dim { opacity:.5; }
+.mock-sev { width:4px; height:30px; border-radius:2px; }
+.mock-sev.high   { background:var(--crimson); }
+.mock-sev.medium { background:var(--amber); }
+.mock-sev.low    { background:var(--electric); }
+.mock-td { font-size:0.72rem; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mock-td.fw { font-weight:600; }
+.mock-td.warn { color:var(--crimson); }
+
+/* Mock AI capture (feature 2) */
+.mock-ai-wrap { display:flex; flex-direction:column; flex:1; }
+.mock-ai-prompt {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:14px;
+  background:var(--bg);
+  border-bottom:1px solid var(--border-soft);
+}
+.mock-ai-icon {
+  width:30px; height:30px;
+  background:var(--brand); color:#fff;
+  border-radius:8px; display:grid; place-items:center;
+  font-size:0.78rem; flex-shrink:0;
+}
+.mock-bubble {
+  background:var(--bg-soft);
+  border:1px solid var(--border-soft);
+  border-radius:0 10px 10px 10px;
+  padding:9px 12px;
+  font-size:0.76rem;
+  color:var(--ink);
+  line-height:1.55;
+  flex:1;
+  font-style:italic;
+}
+.mock-ai-bar {
+  padding:7px 14px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:var(--brand-tint);
+  border-bottom:1px solid var(--border-soft);
+  font-size:0.66rem;
+  font-weight:600;
+  color:var(--brand);
+}
+.mock-ai-bar i { font-size:0.62rem; }
+.mock-form { flex:1; padding:10px 14px; display:flex; flex-direction:column; gap:0; }
+.mock-field {
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:8px;
+  align-items:center;
+  padding:8px 0;
+  border-bottom:1px solid var(--border-soft);
+}
+.mock-field:last-child { border-bottom:none; }
+.mock-fl {
+  font-size:0.63rem;
+  font-weight:700;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.mock-fv { font-size:0.74rem; color:var(--ink); font-weight:500; }
+.mock-fv.it { color:var(--muted); font-style:italic; font-weight:400; }
+
+/* Mock meetings (feature 3) */
+.mock-meeting-wrap { display:flex; flex-direction:column; flex:1; }
+.mock-meeting-hdr {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 14px;
+  background:var(--bg-soft);
+  border-bottom:1px solid var(--border-soft);
+  gap:10px;
+}
+.mock-mtitle { font-size:0.84rem; font-weight:700; color:var(--ink); margin-bottom:2px; }
+.mock-mmeta  { font-size:0.63rem; color:var(--muted); }
+.mock-todos  { flex:1; display:flex; flex-direction:column; }
+.mock-todo-r {
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  padding:10px 14px;
+  border-bottom:1px solid var(--border-soft);
+}
+.mock-todo-r:last-child { border-bottom:none; }
+.mock-todo-r i { font-size:0.82rem; margin-top:1px; flex-shrink:0; }
+.mock-todo-r.done i { color:#059669; }
+.mock-todo-r.act  i { color:var(--brand); }
+.mock-todo-r.pend i { color:var(--muted); }
+.mock-ttl { font-size:0.73rem; font-weight:600; color:var(--ink); margin-bottom:2px; line-height:1.35; }
+.mock-todo-r.done .mock-ttl { text-decoration:line-through; opacity:.55; }
+.mock-tmeta { font-size:0.62rem; color:var(--muted); }
+
+/* Mock KPI dashboard (feature 4) */
+.mock-kpi-wrap { display:flex; flex-direction:column; flex:1; }
+.mock-kpi-row {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--border-soft);
+}
+.mock-kpi-cell {
+  padding:14px 10px;
+  text-align:center;
+  border-right:1px solid var(--border-soft);
+}
+.mock-kpi-cell:last-child { border-right:none; }
+.mock-kn {
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1;
+  margin-bottom:4px;
+  font-variant-numeric:tabular-nums;
+}
+.mock-kn.r { color:var(--crimson); }
+.mock-kn.g { color:#059669; }
+.mock-kn.a { color:var(--amber); }
+.mock-klbl {
+  font-size:0.6rem;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+.mock-chart-area {
+  flex:1;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:var(--bg);
+}
+.mock-chart-lbl {
+  font-size:0.64rem;
+  font-weight:600;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+.mock-bars-row {
+  flex:1;
+  display:flex;
+  align-items:flex-end;
+  gap:6px;
+  min-height:80px;
+}
+.mock-b {
+  flex:1;
+  background:var(--bg-soft);
+  border-radius:4px 4px 0 0;
+  position:relative;
+  overflow:hidden;
+  min-height:6px;
+}
+.mock-b-fill {
+  position:absolute;
+  bottom:0; left:0; right:0;
+  background:linear-gradient(to top, var(--electric), var(--electric-light));
+  border-radius:4px 4px 0 0;
+  height:100%;
+}
+.mock-b-fill.hi {
+  background:linear-gradient(to top, var(--amber), var(--amber-light));
 }
 
 /* ============================================================
@@ -1216,7 +1431,17 @@ header.nav.menu-open .nav-toggle {
   transition: opacity .25s;
 }
 .marquee-track img:hover { opacity: 1; }
-.logo-fb { font-weight: 600; font-size: 1rem; color: rgba(255,255,255,.7); white-space: nowrap; }
+.logo-fb {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,.75);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 6px;
+}
 @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ============================================================
@@ -1471,10 +1696,18 @@ footer.site {
   }
   .btn-ghost:hover { border-color: var(--brand); color: var(--electric-light); }
 
-  /* ── Shot placeholder ── */
-  .shot-ph {
-    background: linear-gradient(145deg, var(--bg-soft) 0%, var(--brand-tint) 100%);
-  }
+  /* ── Mock product UI chips / badges ── */
+  .chip-r { background:#2c1020; color:#ff7575; }
+  .chip-a { background:#2c2010; color:var(--amber); }
+  .chip-g { background:#0e2418; color:#4ade80; }
+  .badge-open { background:#2c2010; color:var(--amber); }
+  .badge-ov   { background:#2c1020; color:#ff7575; }
+  .badge-done { background:#0e2418; color:#4ade80; }
+  .badge-prog { background:var(--brand-tint); color:var(--electric-light); }
+  .mock-bubble { background:var(--bg-soft); border-color:var(--border); }
+  .mock-ai-bar { background:var(--brand-tint); color:var(--electric-light); }
+  .mock-meeting-hdr { background:var(--bg-soft); border-color:var(--border); }
+  .mock-b { background:var(--border); }
 }
 </style>
 
@@ -1906,17 +2139,48 @@ footer.site {
           </div>
         </div>
         <div class="browser-body">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/kaizen-helper-AC-screen.png"
-            alt="Kaizen Helper — Abnormal Conditions Dashboard showing logged issues, status, and owners"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-ph" style="display:none">
-            <div class="shot-ph-icon"><i class="fa-solid fa-grid-2" aria-hidden="true"></i></div>
-            <div class="shot-ph-title">Abnormal Conditions Dashboard</div>
-            <div class="shot-ph-sub">Every reported condition in one live, prioritized view with AI-assisted analysis</div>
+          <div class="shot-ph">
+            <div class="mock-header">
+              <span class="mock-tag tag-blue">AC Dashboard</span>
+              <div class="mock-chips">
+                <span class="mock-chip chip-r">3 Open</span>
+                <span class="mock-chip chip-a">1 Overdue</span>
+                <span class="mock-chip chip-g">12 Resolved</span>
+              </div>
+            </div>
+            <div class="mock-table">
+              <div class="mock-row-h">
+                <span></span><span class="mock-th">Condition</span><span class="mock-th">Owner</span><span class="mock-th">Due</span><span class="mock-th">Status</span>
+              </div>
+              <div class="mock-row-r">
+                <div class="mock-sev high"></div>
+                <span class="mock-td fw">Machine #3 — vibration above threshold</span>
+                <span class="mock-td">Sarah K.</span><span class="mock-td">Jun 15</span>
+                <span class="mock-badge badge-prog">In Progress</span>
+              </div>
+              <div class="mock-row-r">
+                <div class="mock-sev medium"></div>
+                <span class="mock-td fw">Line 2 quality rework rate +12%</span>
+                <span class="mock-td">Tom R.</span><span class="mock-td">Jun 18</span>
+                <span class="mock-badge badge-open">Open</span>
+              </div>
+              <div class="mock-row-r">
+                <div class="mock-sev low"></div>
+                <span class="mock-td fw">Forklift B — daily check skipped</span>
+                <span class="mock-td">Mike L.</span><span class="mock-td warn">Jun 10</span>
+                <span class="mock-badge badge-ov">Overdue</span>
+              </div>
+              <div class="mock-row-r dim">
+                <div class="mock-sev low"></div>
+                <span class="mock-td fw">Packaging seal inconsistency — L4</span>
+                <span class="mock-td">Team A</span><span class="mock-td">Jun 22</span>
+                <span class="mock-badge badge-done">Resolved</span>
+              </div>
+            </div>
           </div>
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/kaizen-helper-AC-screen.png"
+            alt="Kaizen Helper — Abnormal Conditions Dashboard" style="display:none"
+            onload="this.previousElementSibling.style.display='none';this.style.display='block';" />
         </div>
       </div>
     </div>
@@ -1945,17 +2209,38 @@ footer.site {
           </div>
         </div>
         <div class="browser-body">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-report-ac.png"
-            alt="Kaizen Helper — AI-assisted abnormal condition reporting flow"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-ph" style="display:none">
-            <div class="shot-ph-icon"><i class="fa-solid fa-microphone-lines" aria-hidden="true"></i></div>
-            <div class="shot-ph-title">AI-Assisted Reporting</div>
-            <div class="shot-ph-sub">Frontline teams describe issues in plain language — AI structures the record automatically</div>
+          <div class="shot-ph">
+            <div class="mock-ai-wrap">
+              <div class="mock-ai-prompt">
+                <div class="mock-ai-icon"><i class="fa-solid fa-microphone" aria-hidden="true"></i></div>
+                <div class="mock-bubble">"There's a vibration on Machine 3 — started this morning after shift change"</div>
+              </div>
+              <div class="mock-ai-bar">
+                <i class="fa-solid fa-brain" aria-hidden="true"></i> Kaizen AI — Structuring record…
+              </div>
+              <div class="mock-form">
+                <div class="mock-field">
+                  <div class="mock-fl">Type</div>
+                  <div class="mock-fv">Abnormal Condition</div>
+                </div>
+                <div class="mock-field">
+                  <div class="mock-fl">Area</div>
+                  <div class="mock-fv">Production Floor — Machine #3</div>
+                </div>
+                <div class="mock-field">
+                  <div class="mock-fl">Severity</div>
+                  <div class="mock-fv"><span class="mock-badge badge-ov">High</span></div>
+                </div>
+                <div class="mock-field">
+                  <div class="mock-fl">AI Insight</div>
+                  <div class="mock-fv it">Possible bearing wear — check lubrication schedule</div>
+                </div>
+              </div>
+            </div>
           </div>
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-report-ac.png"
+            alt="Kaizen Helper — AI-assisted abnormal condition reporting" style="display:none"
+            onload="this.previousElementSibling.style.display='none';this.style.display='block';" />
         </div>
       </div>
     </div>
@@ -1984,17 +2269,38 @@ footer.site {
           </div>
         </div>
         <div class="browser-body">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-meeting.png"
-            alt="Kaizen Helper — Meeting and action item management, linked to open issues"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-ph" style="display:none">
-            <div class="shot-ph-icon"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i></div>
-            <div class="shot-ph-title">Meetings &amp; Action Items</div>
-            <div class="shot-ph-sub">Every follow-up linked to the problem it fixes — with clear owners and due dates</div>
+          <div class="shot-ph">
+            <div class="mock-meeting-wrap">
+              <div class="mock-meeting-hdr">
+                <div>
+                  <div class="mock-mtitle">Daily Kaizen Standup</div>
+                  <div class="mock-mmeta">June 14 · 3 participants · 4 action items</div>
+                </div>
+                <span class="mock-badge badge-prog">Active</span>
+              </div>
+              <div class="mock-todos">
+                <div class="mock-todo-r done">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  <div><div class="mock-ttl">Review vibration report — AC #47</div><div class="mock-tmeta">Sarah K. · Completed</div></div>
+                </div>
+                <div class="mock-todo-r done">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  <div><div class="mock-ttl">Update root cause analysis</div><div class="mock-tmeta">Tom R. · Completed</div></div>
+                </div>
+                <div class="mock-todo-r act">
+                  <i class="fa-regular fa-circle" aria-hidden="true"></i>
+                  <div><div class="mock-ttl">Schedule bearing inspection — Line 2</div><div class="mock-tmeta">Mike L. · Due Jun 16</div></div>
+                </div>
+                <div class="mock-todo-r pend">
+                  <i class="fa-regular fa-circle" aria-hidden="true"></i>
+                  <div><div class="mock-ttl">Close corrective action — rework</div><div class="mock-tmeta">Team A · Due Jun 20</div></div>
+                </div>
+              </div>
+            </div>
           </div>
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-meeting.png"
+            alt="Kaizen Helper — Meeting and action item management" style="display:none"
+            onload="this.previousElementSibling.style.display='none';this.style.display='block';" />
         </div>
       </div>
     </div>
@@ -2023,17 +2329,31 @@ footer.site {
           </div>
         </div>
         <div class="browser-body">
-          <img
-            src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-AC_dashboard.png"
-            alt="Kaizen Helper — Real-time KPI and trend dashboard for leaders"
-            loading="lazy"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          />
-          <div class="shot-ph" style="display:none">
-            <div class="shot-ph-icon"><i class="fa-solid fa-chart-area" aria-hidden="true"></i></div>
-            <div class="shot-ph-title">KPI &amp; Trend Dashboard</div>
-            <div class="shot-ph-sub">Real-time visibility into open issues, recurring conditions, and improvement velocity</div>
+          <div class="shot-ph">
+            <div class="mock-kpi-wrap">
+              <div class="mock-kpi-row">
+                <div class="mock-kpi-cell"><div class="mock-kn">24</div><div class="mock-klbl">Open ACs</div></div>
+                <div class="mock-kpi-cell"><div class="mock-kn r">3</div><div class="mock-klbl">Overdue</div></div>
+                <div class="mock-kpi-cell"><div class="mock-kn g">87%</div><div class="mock-klbl">Resolved</div></div>
+                <div class="mock-kpi-cell"><div class="mock-kn a">4.2d</div><div class="mock-klbl">Avg Close Time</div></div>
+              </div>
+              <div class="mock-chart-area">
+                <div class="mock-chart-lbl">Issues resolved — last 7 weeks</div>
+                <div class="mock-bars-row">
+                  <div class="mock-b" style="height:40%"><div class="mock-b-fill"></div></div>
+                  <div class="mock-b" style="height:60%"><div class="mock-b-fill"></div></div>
+                  <div class="mock-b" style="height:45%"><div class="mock-b-fill"></div></div>
+                  <div class="mock-b" style="height:75%"><div class="mock-b-fill"></div></div>
+                  <div class="mock-b" style="height:55%"><div class="mock-b-fill"></div></div>
+                  <div class="mock-b" style="height:88%"><div class="mock-b-fill hi"></div></div>
+                  <div class="mock-b" style="height:72%"><div class="mock-b-fill"></div></div>
+                </div>
+              </div>
+            </div>
           </div>
+          <img src="https://kaizenhelper.s3.us-east-2.amazonaws.com/KH-AC_dashboard.png"
+            alt="Kaizen Helper — Real-time KPI and trend dashboard" style="display:none"
+            onload="this.previousElementSibling.style.display='none';this.style.display='block';" />
         </div>
       </div>
     </div>
@@ -2293,13 +2613,19 @@ const logos = [
 ];
 const track = document.getElementById("logoTrack");
 function buildLogo(l) {
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "display:flex;align-items:center;flex-shrink:0;";
+  /* show styled text label immediately; replace with image if it loads */
+  const fb = document.createElement("span");
+  fb.className = "logo-fb"; fb.textContent = l.name;
+  wrap.appendChild(fb);
   const img = document.createElement("img");
   img.src = l.src; img.alt = l.name + " logo"; img.loading = "lazy";
-  img.onerror = () => {
-    const s = document.createElement("span"); s.className = "logo-fb"; s.textContent = l.name;
-    img.replaceWith(s);
-  };
-  return img;
+  img.style.cssText = "display:none;height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.65;";
+  img.onload  = () => { fb.style.display = "none"; img.style.display = "block"; };
+  img.onerror = () => { img.remove(); };
+  wrap.appendChild(img);
+  return wrap;
 }
 [...logos, ...logos].forEach(l => track.appendChild(buildLogo(l)));
 
