@@ -403,8 +403,8 @@ header.nav.menu-open .nav-toggle {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
   align-items: center;
 }
 .hero-text { }
@@ -427,6 +427,9 @@ header.nav.menu-open .nav-toggle {
 .hero-label i { color: var(--amber); }
 .hero h1 {
   color: #fff;
+  line-height: 1.08;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  text-wrap: balance;
 }
 .hero h1 em {
   font-style: italic;
@@ -434,10 +437,10 @@ header.nav.menu-open .nav-toggle {
 }
 .hero-sub {
   color: rgba(255,255,255,.82);
-  font-size: clamp(1.06rem, 1.9vw, 1.22rem);
-  line-height: 1.68;
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  line-height: 1.72;
   margin-top: 24px;
-  max-width: 520px;
+  max-width: 100%;
 }
 .hero-cta {
   display: flex;
@@ -463,15 +466,70 @@ header.nav.menu-open .nav-toggle {
 }
 .hero-proof i { color: rgba(255,255,255,.4); font-size: 0.75rem; }
 
-/* Lottie container — bare, frameless, floats on the blue bg */
-.hero-visual { position: relative; }
-.hero-visual .stage {
-  aspect-ratio: 1 / 1;
-  display: grid;
-  place-items: center;
+/* Hero visual — product card + optional Lottie overlay */
+.hero-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+.hero-card-wrap { position: relative; width: 100%; max-width: 500px; }
+
+.hero-card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  padding: 20px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.35);
 }
-.hero-visual #heroLottie { width: 100%; height: 100%; }
-.hero-visual #heroLottie svg { display: block; }
+.hcard-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.hcard-title { font-family: var(--serif); font-weight: 700; font-size: 0.88rem; color: rgba(255,255,255,.9); }
+.hcard-live { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 600; color: #4ade80; }
+.hcard-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+.hcard-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+.hcard-kpi { background: rgba(255,255,255,.06); border-radius: 8px; padding: 10px 12px; text-align: center; }
+.hcard-num { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; line-height: 1; }
+.hcard-num.g { color: #4ade80; }
+.hcard-num.a { color: var(--amber); }
+.hcard-unit { font-size: 1rem; }
+.hcard-lbl { font-size: 0.65rem; color: rgba(255,255,255,.5); margin-top: 4px; font-weight: 500; }
+
+.hcard-bar-label { font-size: 0.65rem; color: rgba(255,255,255,.4); margin-bottom: 8px; font-weight: 500; }
+.hcard-bars { display: flex; align-items: flex-end; gap: 5px; height: 56px; margin-bottom: 16px; }
+.hcard-bar { flex: 1; height: var(--h); background: rgba(255,255,255,.18); border-radius: 3px 3px 0 0; transition: height .6s ease; }
+.hcard-bar.hi { background: var(--amber); }
+
+.hcard-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.hcard-issue { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.06); border-radius: 7px; padding: 8px 10px; }
+.hcard-sev { width: 4px; border-radius: 2px; align-self: stretch; min-height: 28px; flex-shrink: 0; }
+.hcard-sev.h { background: var(--crimson); }
+.hcard-sev.m { background: var(--amber); }
+.hcard-detail { flex: 1; min-width: 0; }
+.hcard-iname { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hcard-imeta { font-size: 0.62rem; color: rgba(255,255,255,.45); margin-top: 2px; }
+.hcard-badge { font-size: 0.58rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.hcard-badge.prog { background: rgba(21,100,214,.35); color: var(--electric-light); }
+.hcard-badge.open { background: rgba(245,168,0,.2); color: var(--amber); }
+
+.hcard-ai {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(21,100,214,.2); border: 1px solid rgba(21,100,214,.3);
+  border-radius: 7px; padding: 8px 10px;
+  font-size: 0.7rem; color: rgba(255,255,255,.75);
+}
+.hcard-ai i { color: var(--electric-light); font-size: 0.72rem; flex-shrink: 0; }
+
+/* Lottie overlays the card when it loads */
+.hero-lottie-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s;
+}
+.hero-lottie-overlay svg { display: block; }
+
 .lottie-fallback {
   display: none;
   place-items: center;
@@ -1536,7 +1594,10 @@ footer.site {
   .ba-grid,
   .story-grid { grid-template-columns: 1fr; }
   .feature-row.flip .feature-text { order: 0; }
-  .hero-visual { max-width: 400px; margin-inline: auto; width: 100%; }
+  .hero-card-wrap { max-width: 440px; margin-inline: auto; }
+  .hero-card { padding: 16px; }
+  .hcard-kpis { gap: 7px; }
+  .hcard-bars { height: 44px; }
   .reality-compare { grid-template-columns: 1fr; }
   .bridge-intro { flex-direction: column; }
 }
@@ -1763,7 +1824,7 @@ footer.site {
         <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
         Built from a problem we couldn't ignore
       </div>
-      <h1>Every Company Solves a Problem,<br><em>untill</em><br>they're not.</h1>
+      <h1>Every Company Solves a Problem,<br>but We <em>forget</em><br>the Problem We Are Solving.</h1>
       <p class="hero-sub">
         We built Kaizen Helper after watching well-run companies drift from the core mission that
         gave them purpose. Staying focused on your founding problem isn't an accident —
@@ -1785,17 +1846,64 @@ footer.site {
     </div>
 
     <div class="hero-visual">
-      <div class="stage">
-        <!-- HERO-LOTTIE — rendered by lottie-web from assets/hero-animation.json -->
-        <div id="heroLottie" role="img" aria-label="Animated illustration of continuous improvement"></div>
-        <div class="lottie-fallback" id="heroFallback" style="display:none;align-items:center;justify-content:center;">
-          <div style="text-align:center;">
-            <i class="fa-solid fa-seedling" style="font-size:2.4rem;color:rgba(255,255,255,.6)"></i>
-            <p style="color:rgba(255,255,255,.7);margin-top:12px;font-weight:600">Continuous improvement, visualized</p>
+      <!-- Static product card — always visible; Lottie overlays it when it loads -->
+      <div class="hero-card-wrap">
+        <div class="hero-card">
+          <div class="hcard-header">
+            <span class="hcard-title">Kaizen Dashboard</span>
+            <span class="hcard-live"><span class="hcard-dot"></span>Live</span>
+          </div>
+          <div class="hcard-kpis">
+            <div class="hcard-kpi"><div class="hcard-num">24</div><div class="hcard-lbl">Open Issues</div></div>
+            <div class="hcard-kpi"><div class="hcard-num g">87<span class="hcard-unit">%</span></div><div class="hcard-lbl">Resolved</div></div>
+            <div class="hcard-kpi"><div class="hcard-num a">3</div><div class="hcard-lbl">Overdue</div></div>
+          </div>
+          <div class="hcard-bar-label">Resolution trend — last 6 weeks</div>
+          <div class="hcard-bars">
+            <div class="hcard-bar" style="--h:42%"></div>
+            <div class="hcard-bar" style="--h:58%"></div>
+            <div class="hcard-bar" style="--h:51%"></div>
+            <div class="hcard-bar" style="--h:68%"></div>
+            <div class="hcard-bar" style="--h:74%"></div>
+            <div class="hcard-bar hi" style="--h:87%"></div>
+          </div>
+          <div class="hcard-row">
+            <div class="hcard-issue">
+              <div class="hcard-sev h"></div>
+              <div class="hcard-detail">
+                <div class="hcard-iname">Machine #3 — vibration spike</div>
+                <div class="hcard-imeta">AI Root Cause: bearing wear · Sarah K.</div>
+              </div>
+              <span class="hcard-badge prog">In Progress</span>
+            </div>
+            <div class="hcard-issue">
+              <div class="hcard-sev m"></div>
+              <div class="hcard-detail">
+                <div class="hcard-iname">Line 2 rework rate +12%</div>
+                <div class="hcard-imeta">Open · Tom R. · Due Jun 18</div>
+              </div>
+              <span class="hcard-badge open">Open</span>
+            </div>
+          </div>
+          <div class="hcard-ai">
+            <i class="fa-solid fa-brain" aria-hidden="true"></i>
+            <span>Kaizen AI has identified 2 recurring patterns this week</span>
           </div>
         </div>
+        <!-- Lottie overlays when loaded -->
+        <div id="heroLottie" class="hero-lottie-overlay" role="img" aria-label="Animated illustration of continuous improvement"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============================  LOGO STRIP  ============================ -->
+<section class="logos compact" aria-label="Trusted by">
+  <div class="container">
+    <p class="logos-label">Trusted by organizations improving operations every day</p>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track" id="logoTrack"></div>
   </div>
 </section>
 
@@ -2518,16 +2626,6 @@ footer.site {
   </div>
 </section>
 
-<!-- ============================  LOGO STRIP  ============================ -->
-<section class="logos compact" aria-label="Trusted by">
-  <div class="container">
-    <p class="logos-label">Trusted by organizations improving operations every day</p>
-  </div>
-  <div class="marquee">
-    <div class="marquee-track" id="logoTrack"></div>
-  </div>
-</section>
-
 <!-- ============================  FINAL CTA  ============================ -->
 <section class="final">
   <div class="container">
@@ -2689,18 +2787,14 @@ if (reduceMotion) {
 /* Hero Lottie — HERO-LOTTIE (swap path below to change the animation) */
 (function initLottie() {
   const container = document.getElementById("heroLottie");
-  const fallback  = document.getElementById("heroFallback");
-  function showFallback() {
-    if (container) container.style.display = "none";
-    if (fallback)  fallback.style.display  = "flex";
-  }
-  if (!window.lottie) { showFallback(); return; }
+  if (!container || !window.lottie) return;
   try {
     const anim = lottie.loadAnimation({
       container, renderer: "svg", loop: true, autoplay: !reduceMotion,
       path: "assets/hero-animation.json",
     });
-    anim.addEventListener("data_failed", showFallback);
-  } catch(e) { showFallback(); }
+    anim.addEventListener("data_ready", () => { container.style.opacity = "1"; });
+    anim.addEventListener("data_failed", () => { container.style.display = "none"; });
+  } catch(e) { container.style.display = "none"; }
 })();
 </script>
