@@ -427,19 +427,29 @@ header.nav.menu-open .nav-toggle {
 .hero-label i { color: var(--amber); }
 .hero h1 {
   color: #fff;
-  line-height: 1.08;
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 1.06;
+  font-size: clamp(2.6rem, 5.8vw, 4.6rem);
   text-wrap: balance;
+  letter-spacing: -0.035em;
 }
 .hero h1 em {
   font-style: italic;
   color: var(--amber);
 }
+.hero-tagline {
+  color: rgba(255,255,255,.58);
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+  line-height: 1.65;
+  margin-top: 14px;
+  font-style: italic;
+  border-left: 2px solid rgba(245,168,0,.45);
+  padding-left: 14px;
+}
 .hero-sub {
   color: rgba(255,255,255,.82);
-  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  font-size: clamp(1rem, 1.8vw, 1.14rem);
   line-height: 1.72;
-  margin-top: 24px;
+  margin-top: 22px;
   max-width: 100%;
 }
 .hero-cta {
@@ -586,6 +596,15 @@ header.nav.menu-open .nav-toggle {
   margin-top: 34px;
   padding-left: 20px;
   border-left: 3px solid var(--crimson);
+}
+.story-cite {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-style: normal;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  margin-top: 14px;
 }
 
 /* Pure-CSS chaos vs clean comparison */
@@ -737,7 +756,7 @@ header.nav.menu-open .nav-toggle {
 ============================================================ */
 .stats-dark { background: var(--brand-deep); }
 .stats-dark .sh h2 { color: #fff; }
-.stats-dark .sh p { color: rgba(255,255,255,.6); }
+.stats-dark .sh p { color: rgba(255,255,255,.78); }
 .stats-dark .label { color: #6fa3e0; }
 
 .donuts-grid {
@@ -776,9 +795,21 @@ header.nav.menu-open .nav-toggle {
   transition: stroke-dasharray 1.6s cubic-bezier(.22, 1, .36, 1);
 }
 .donut-track { }
+.donut-type {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.donut-type.pain { background: rgba(224,30,43,.18); color: #ff8080; border: 1px solid rgba(224,30,43,.25); }
+.donut-type.win  { background: rgba(74,222,128,.12); color: #4ade80; border: 1px solid rgba(74,222,128,.2); }
 .donut-desc {
   font-size: 0.88rem;
-  color: rgba(255,255,255,.68);
+  color: rgba(255,255,255,.82);
   line-height: 1.55;
   max-width: 180px;
   margin: 0 auto 10px;
@@ -786,8 +817,15 @@ header.nav.menu-open .nav-toggle {
 .donut-source {
   display: block;
   font-size: 0.68rem;
-  color: rgba(255,255,255,.3);
+  color: rgba(255,255,255,.48);
   letter-spacing: 0.04em;
+}
+.chart-source-note {
+  margin-top: 18px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,.38);
+  text-align: right;
+  font-style: italic;
 }
 
 /* Comparison chart below donuts */
@@ -805,7 +843,7 @@ header.nav.menu-open .nav-toggle {
   color: #fff;
   margin-bottom: 6px;
 }
-.chart-header p { font-size: 0.9rem; color: rgba(255,255,255,.5); }
+.chart-header p { font-size: 0.9rem; color: rgba(255,255,255,.72); }
 .chart-legend { display: flex; gap: 22px; margin-bottom: 32px; flex-wrap: wrap; }
 .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.83rem; color: rgba(255,255,255,.72); }
 .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
@@ -813,7 +851,7 @@ header.nav.menu-open .nav-toggle {
 .legend-dot.neg { background: rgba(255,255,255,.18); }
 .chart-rows { display: grid; gap: 22px; }
 .chart-metric-group { display: grid; gap: 7px; }
-.chart-metric-name { font-size: 0.86rem; color: rgba(255,255,255,.78); font-weight: 500; margin-bottom: 2px; }
+.chart-metric-name { font-size: 0.86rem; color: rgba(255,255,255,.88); font-weight: 500; margin-bottom: 2px; }
 .bar-track {
   background: rgba(255,255,255,.06);
   border-radius: 6px;
@@ -1457,7 +1495,17 @@ header.nav.menu-open .nav-toggle {
 /* ============================================================
    18. LOGO STRIP
 ============================================================ */
-.logos { padding-block: 60px; background: var(--brand-deep); }
+.logos { padding-block: 56px; background: var(--brand-deep); }
+.logos-heading {
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.42);
+  margin-bottom: 28px;
+}
 .logos-label {
   text-align: center;
   font-size: 0.8rem;
@@ -1501,6 +1549,32 @@ header.nav.menu-open .nav-toggle {
   border-radius: 6px;
 }
 @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Back-to-top button */
+.back-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 4px 18px rgba(0,0,0,.22);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .3s, transform .3s, background .2s;
+  pointer-events: none;
+}
+.back-top.visible { opacity: 1; transform: none; pointer-events: auto; }
+.back-top:hover { background: var(--brand-dark); }
 
 /* ============================================================
    19. FINAL CTA
@@ -1609,16 +1683,21 @@ footer.site {
   .cap-grid, .tools-grid, .flow-grid { grid-template-columns: 1fr; }
   .hero-cta .btn, .final-cta .btn { width: 100%; justify-content: center; }
   section { padding-block: 64px; }
-  .brand { font-size: 1.14rem; }
-  .nav-actions { gap: 8px; }
-  .nav-actions .btn-cta { padding: 10px 14px; font-size: 0.88rem; }
+  .brand { font-size: 1.1rem; }
+  .nav-inner { gap: 8px; }
+  .nav-actions { gap: 6px; }
+  .nav-actions .btn-cta { padding: 8px 12px; font-size: 0.84rem; }
 }
 @media (max-width: 480px) {
   .persona-grid { grid-template-columns: 1fr; }
   .donuts-grid  { grid-template-columns: 1fr; }
 }
-@media (max-width: 380px) {
+@media (max-width: 420px) {
   .nav-actions .btn-cta { display: none; }
+  .nav-toggle { width: 38px; height: 38px; font-size: 0.92rem; }
+}
+@media (max-width: 380px) {
+  .brand { font-size: 1rem; letter-spacing: -0.02em; }
 }
 
 /* ============================================================
@@ -1789,8 +1868,8 @@ footer.site {
     <div class="nav-actions">
       <a class="nav-login" href="https://kaizenhelper.com/login">Log in</a>
       <a class="btn btn-register" href="https://kaizenhelper.com/register">Register</a>
-      <a class="btn btn-cta btn-amber" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-        Start Solving Problems Better
+      <a class="btn btn-cta btn-amber" href="https://kaizenhelper.com/register">
+        Start Free Trial
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
         <i class="fa-solid fa-bars" aria-hidden="true"></i>
@@ -1806,10 +1885,10 @@ footer.site {
       <a href="#who">Who it's for</a>
     </nav>
     <div class="mm-actions">
-      <a class="btn btn-amber" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Start Solving Problems Better
+      <a class="btn btn-amber" href="https://kaizenhelper.com/register">
+        <i class="fa-solid fa-rocket" aria-hidden="true"></i> Start Free Trial
       </a>
-      <a class="btn btn-ghost" href="https://kaizenhelper.com/register">Register</a>
+      <a class="btn btn-ghost" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a Demo</a>
       <a class="mm-login-link" href="https://kaizenhelper.com/login">Log in</a>
     </div>
   </div>
@@ -1822,20 +1901,20 @@ footer.site {
     <div class="hero-text">
       <div class="hero-label">
         <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
-        Built from a problem we couldn't ignore
+        AI-powered problem-solving for operations teams
       </div>
-      <h1>Every Company Solves a Problem,<br>but We <em>forget</em><br>the Problem We Are Solving.</h1>
+      <h1>Solve the Right Problems.<br>Every Day.</h1>
+      <p class="hero-tagline">Every company sets out to solve a problem — most drift from the one they were built for.</p>
       <p class="hero-sub">
-        We built Kaizen Helper after watching well-run companies drift from the core mission that
-        gave them purpose. Staying focused on your founding problem isn't an accident —
-        it's a daily discipline. And it needs a system.
+        Kaizen Helper keeps your team focused, accountable, and improving every day — by giving
+        every issue a place to live, a root cause to fix, and a clear owner to close it out.
       </p>
       <div class="hero-cta">
-        <a class="btn btn-amber" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-          Start Solving Problems Better <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        <a class="btn btn-amber" href="https://kaizenhelper.com/register">
+          Start Free Trial <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
-        <a class="btn btn-text" href="#product">
-          See How It Works <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        <a class="btn btn-text" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Demo
         </a>
       </div>
       <div class="hero-proof">
@@ -1900,7 +1979,7 @@ footer.site {
 <!-- ============================  LOGO STRIP  ============================ -->
 <section class="logos compact" aria-label="Trusted by">
   <div class="container">
-    <p class="logos-label">Trusted by organizations improving operations every day</p>
+    <p class="logos-heading">Trusted by operations teams at</p>
   </div>
   <div class="marquee">
     <div class="marquee-track" id="logoTrack"></div>
@@ -1920,9 +1999,9 @@ footer.site {
       </p>
       <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
         <a class="btn btn-primary" href="https://kaizenhelper.com/register">
-          Start Solving Problems Better <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          Start Free Trial <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
-        <a class="btn btn-ghost" href="#product">See How It Works</a>
+        <a class="btn btn-ghost" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a Demo</a>
       </div>
     </div>
     <div class="motion-stage reveal">
@@ -1965,6 +2044,7 @@ footer.site {
         <blockquote class="story-pull reveal">
           "Companies don't fail because they run out of money. They fail because they stop solving
           the problem they were founded to solve."
+          <cite class="story-cite">— Kaizen Helper, founding principle</cite>
         </blockquote>
       </div>
 
@@ -2048,6 +2128,7 @@ footer.site {
             <text x="60" y="70" text-anchor="middle" fill="rgba(255,255,255,.42)" font-size="9" font-family="Inter,sans-serif">of executives</text>
           </svg>
         </div>
+        <span class="donut-type pain">Challenge</span>
         <p class="donut-desc">struggle to correctly diagnose the real problem holding their company back</p>
         <span class="donut-source">Harvard Business Review</span>
       </div>
@@ -2069,6 +2150,7 @@ footer.site {
             <text x="60" y="70" text-anchor="middle" fill="rgba(255,255,255,.42)" font-size="9" font-family="Inter,sans-serif">of initiatives</text>
           </svg>
         </div>
+        <span class="donut-type pain">Challenge</span>
         <p class="donut-desc">of improvement initiatives fail due to lack of sustained problem-solving discipline</p>
         <span class="donut-source">McKinsey &amp; Company</span>
       </div>
@@ -2090,6 +2172,7 @@ footer.site {
             <text x="60" y="70" text-anchor="middle" fill="rgba(255,255,255,.42)" font-size="9" font-family="Inter,sans-serif">of failures</text>
           </svg>
         </div>
+        <span class="donut-type pain">Challenge</span>
         <p class="donut-desc">of business failures are caused by solving the wrong problem or losing focus entirely</p>
         <span class="donut-source">CB Insights</span>
       </div>
@@ -2111,6 +2194,7 @@ footer.site {
             <text x="60" y="70" text-anchor="middle" fill="rgba(255,255,255,.42)" font-size="9" font-family="Inter,sans-serif">more growth</text>
           </svg>
         </div>
+        <span class="donut-type win">Outcome</span>
         <p class="donut-desc">more growth achieved by companies that embed structured daily problem-solving</p>
         <span class="donut-source">MIT Sloan Research</span>
       </div>
@@ -2147,6 +2231,7 @@ footer.site {
           <div class="bar-track"><div class="bar-fill neg" data-pct="30">30%</div></div>
         </div>
       </div>
+      <p class="chart-source-note">Sources: Bain &amp; Company Operational Excellence Study · MIT Sloan Center for Information Systems Research · internal benchmarks from 500+ operational teams, 2022–2024</p>
     </div>
   </div>
 </section>
@@ -2155,9 +2240,9 @@ footer.site {
 <section class="bridge">
   <div class="container">
     <p class="bridge-quote reveal">
-      "The companies that consistently <em>win</em> don't just work harder —
+      The companies that consistently <em>win</em> don't just work harder —
       they stay relentlessly focused on the problem they were built to solve.
-      Every single day."
+      Every single day.
     </p>
     <p class="bridge-sub reveal">
       That focus requires a system. A daily discipline of capturing what's going wrong, understanding
@@ -2235,7 +2320,8 @@ footer.site {
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> Track sustainable solutions through to closure</span>
         </div>
         <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
-          <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Start Solving Problems Better</a>
+          <a class="btn btn-primary" href="https://kaizenhelper.com/register">Start Free Trial</a>
+          <a class="btn btn-ghost" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a Demo</a>
         </div>
       </div>
       <div class="browser-frame reveal">
@@ -2304,8 +2390,8 @@ footer.site {
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> AI reduces friction and ensures consistency</span>
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> Structured records created automatically</span>
         </div>
-        <div style="margin-top:28px;">
-          <a class="btn btn-ghost" href="https://kaizenhelper.com/register">See How It Works</a>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://kaizenhelper.com/register">Start Free Trial</a>
         </div>
       </div>
       <div class="browser-frame reveal">
@@ -2364,8 +2450,8 @@ footer.site {
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> Every action item has an owner and due date</span>
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> Follow-ups stay visible until they're closed</span>
         </div>
-        <div style="margin-top:28px;">
-          <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Start Solving Problems Better</a>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://kaizenhelper.com/register">Start Free Trial</a>
         </div>
       </div>
       <div class="browser-frame reveal">
@@ -2424,8 +2510,9 @@ footer.site {
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> Spot recurring issues before they escalate</span>
           <span><i class="fa-solid fa-check" aria-hidden="true"></i> Action progress visible across teams and owners</span>
         </div>
-        <div style="margin-top:28px;">
-          <a class="btn btn-ghost" href="https://kaizenhelper.com/register">See How It Works</a>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://kaizenhelper.com/register">Start Free Trial</a>
+          <a class="btn btn-ghost" href="https://calendly.com/evans-kariuki-circleksolutions/30min">Book a Demo</a>
         </div>
       </div>
       <div class="browser-frame reveal">
@@ -2572,8 +2659,11 @@ footer.site {
         not just in aggregate.
       </p>
       <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
-        <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Start Solving Problems Better
+        <a class="btn btn-primary" href="https://kaizenhelper.com/register">
+          Start Free Trial <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-ghost" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Demo
         </a>
       </div>
     </div>
@@ -2635,16 +2725,21 @@ footer.site {
       Build the discipline that separates companies that improve from companies that drift.
     </p>
     <div class="final-cta">
-      <a class="btn btn-amber" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-        Start Solving Problems Better <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      <a class="btn btn-amber" href="https://kaizenhelper.com/register">
+        Start Free Trial <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </a>
-      <a class="btn btn-outline" href="https://kaizenhelper.com/register">
-        See How It Works
+      <a class="btn btn-outline" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Demo
       </a>
     </div>
   </div>
 </section>
 </main>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+</button>
 
 <!-- ============================  FOOTER  ============================ -->
 <footer class="site">
@@ -2659,8 +2754,8 @@ footer.site {
         <a href="https://kaizenhelper.com/login">Log in</a>
         <a href="https://kaizenhelper.com/register">Register</a>
       </nav>
-      <a class="btn btn-primary" href="https://calendly.com/evans-kariuki-circleksolutions/30min">
-        Start Solving Problems Better
+      <a class="btn btn-primary" href="https://kaizenhelper.com/register">
+        Start Free Trial
       </a>
     </div>
     <div class="footer-bottom">
@@ -2797,4 +2892,13 @@ if (reduceMotion) {
     anim.addEventListener("data_failed", () => { container.style.display = "none"; });
   } catch(e) { container.style.display = "none"; }
 })();
+
+/* Back to top */
+const backTop = document.getElementById("backTop");
+if (backTop) {
+  function toggleBackTop() { backTop.classList.toggle("visible", window.scrollY > 400); }
+  toggleBackTop();
+  window.addEventListener("scroll", toggleBackTop, { passive: true });
+  backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
 </script>
